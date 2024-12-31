@@ -1,0 +1,103 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-select/dist/css/bootstrap-select.min.css';
+@import 'swiper/css';
+@import 'animate.css/animate.min.css';
+
+@import "../fonts/fonts.css";
+@import "../fonts/font-icons.css";
+@import "styles.css";
+
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+.bg-danger {
+    background-color: var(--red_1) !important;
+}
+
+.card-product.skeleton {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f6f7f8;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    padding: 15px;
+    animation: pulse 1.5s infinite;
+}
+
+.card-product.skeleton .img-skeleton {
+    width: 100%;
+    height: 18vw;
+    background: #e0e0e0;
+    border-radius: 10px;
+}
+
+.card-product.skeleton .btn-skeleton {
+    width: 40px;
+    height: 40px;
+    background: #e0e0e0;
+    margin: 5px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.card-product.skeleton .title-skeleton {
+    width: 70%;
+    height: 20px;
+    background: #e0e0e0;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.card-product.skeleton .price-skeleton {
+    width: 40%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        background-color: #f6f7f8;
+    }
+    50% {
+        background-color: #eaeaea;
+    }
+    100% {
+        background-color: #f6f7f8;
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Default hidden state */
+.card-product {
+    display: none;
+}
+
+/* Visible state */
+.card-product.visible {
+    display: block;
+    animation: fadeInScale 0.3s ease forwards;
+}
+
+
+.tf-pagination-list .pagination-link.disabled,
+.tf-pagination-list .pagination-link:disabled {
+    cursor: not-allowed;
+    color: #bbb; /* Light gray text */
+    border-color: #ddd; /* Light gray border */
+    background-color: #f9f9f9; /* Slightly off-white background */
+    pointer-events: none; /* Disable all pointer events */
+}
