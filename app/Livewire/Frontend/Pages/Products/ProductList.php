@@ -2,13 +2,10 @@
 
 namespace App\Livewire\Frontend\Pages\Products;
 
-use Illuminate\Database\Query\Builder;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\Lazy;
+use App\Models\Product;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use App\Models\Product;
 use Livewire\WithPagination;
 
 class ProductList extends Component
@@ -18,8 +15,11 @@ class ProductList extends Component
     protected $paginationTheme = 'bootstrap-custom';
 
     public $readyToLoad = false;
+
     public $search;
+
     public $sort = 'default';
+
     public $category;
 
     protected $withCount = ['relation'];
@@ -48,11 +48,9 @@ class ProductList extends Component
 
     protected function products()
     {
-//        sleep(1); // Simulate slow loading
-        return Product::when($this->category, fn($query) => $query->where('category_id', $this->category->id))
+        //        sleep(1); // Simulate slow loading
+        return Product::when($this->category, fn ($query) => $query->where('category_id', $this->category->id))
             ->filter($this->filters)
             ->paginate(12);
     }
-
-
 }

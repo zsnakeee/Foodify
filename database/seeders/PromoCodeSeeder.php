@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PromoCode;
 use Illuminate\Database\Seeder;
 
 class PromoCodeSeeder extends Seeder
@@ -12,6 +12,6 @@ class PromoCodeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        PromoCode::factory()->count(10)->create();
     }
 }

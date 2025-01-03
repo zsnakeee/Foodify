@@ -5,8 +5,8 @@ namespace App\Services\Auth;
 use App\Models\User;
 use Exception;
 use Hash;
-use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
+use Laravel\Socialite\Facades\Socialite;
 use Str;
 
 abstract class SocialAuthProvider implements SocialAuthProviderInterface
@@ -28,17 +28,18 @@ abstract class SocialAuthProvider implements SocialAuthProviderInterface
         auth()->login($user, true);
     }
 
-
     /**
      * @throws Exception
      */
     public function findOrCreateUser(SocialiteUser $socialUser)
     {
-        if ($this->hasEmailConflictWithDifferentProvider($socialUser))
+        if ($this->hasEmailConflictWithDifferentProvider($socialUser)) {
             throw new Exception(__('auth.socialite.email_conflict'));
+        }
 
-        if ($authUser = User::where('oauth_provider', $this->provider)->where('oauth_id', $socialUser->id)->first())
+        if ($authUser = User::where('oauth_provider', $this->provider)->where('oauth_id', $socialUser->id)->first()) {
             return $authUser;
+        }
 
         return $this->createUser($socialUser);
     }
@@ -48,8 +49,9 @@ abstract class SocialAuthProvider implements SocialAuthProviderInterface
      */
     public function createUser(SocialiteUser $socialUser)
     {
-        if (User::where('email', $socialUser->email)->exists())
+        if (User::where('email', $socialUser->email)->exists()) {
             throw new Exception(__('auth.socialite.email_conflict'));
+        }
 
         return User::create([
             'name' => $socialUser->name,

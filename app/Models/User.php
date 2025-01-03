@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,6 +15,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
     use HasRoles;
 
     /**
@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value): string
     {
-        return $value ?? 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '?d=mp';
+        return $value ?? 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?d=mp';
     }
 
     public function wishlist(): HasOne
@@ -71,5 +71,15 @@ class User extends Authenticatable
     public function recentViews(): HasMany
     {
         return $this->hasMany(RecentView::class);
+    }
+
+    public function redeemPromoCode(PromoCode $promoCode): void
+    {
+        PromoCodeHistory::create([
+            'promo_code_id' => $promoCode->id,
+            'user_id' => $this->id,
+        ]);
+
+        $promoCode->increment('usage_count');
     }
 }

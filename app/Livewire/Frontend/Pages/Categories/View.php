@@ -2,12 +2,9 @@
 
 namespace App\Livewire\Frontend\Pages\Categories;
 
-use AllowDynamicProperties;
-use App\Models\Brand;
 use App\Models\Category;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('layouts.app')]
@@ -24,7 +21,7 @@ class View extends Component
     {
         return view('livewire.frontend.pages.categories.view')->layoutData([
             'breadcrumb' => $this->category->name,
-            'title' => $this->category->name . ' - ' . __('Category'),
+            'title' => $this->category->name.' - '.__('Category'),
         ]);
     }
 
@@ -61,6 +58,4 @@ class View extends Component
     {
         return $this->category->products()->active()->outOfStock()->count() ?? 0;
     }
-
-
 }

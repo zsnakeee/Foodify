@@ -14,6 +14,4 @@ class RegisterPage extends Component
     {
         return view('livewire.frontend.pages.register-page');
     }
-
-
 }

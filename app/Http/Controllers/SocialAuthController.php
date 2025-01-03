@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Services\Auth\SocialAuthProviderInterface;
 use Exception;
-use Illuminate\Http\Request;
 
 class SocialAuthController extends Controller
 {
     public function __construct(
         protected SocialAuthProviderInterface $socialAuthService
-    )
-    {
-    }
+    ) {}
 
     public function redirect()
     {

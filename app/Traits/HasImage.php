@@ -13,6 +13,6 @@ trait HasImage
 
     public function getGalleryUrlsAttribute(): array
     {
-        return array_map(fn($image) => str_starts_with($image, 'http') ? $image : Storage::url($image), $this->gallery ?? []);
+        return array_map(fn ($image) => str_starts_with($image, 'http') ? $image : Storage::url($image), $this->gallery ?? []);
     }
 }

@@ -15,11 +15,13 @@ class Index extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap-custom';
+
     public $breadcrumb = 'Categories';
 
     public function render()
     {
         $categories = Category::paginate(10);
+
         return view('livewire.frontend.pages.categories.index', ['categories' => $categories])->layoutData([
             'breadcrumb' => $this->breadcrumb,
         ]);

@@ -81,8 +81,8 @@
                                 </div>
 
                                 <div style="margin-bottom: 30px"
-                                     x-data="cartHandler({{ $product->id }}, {{ $product->price }})"
-                                     x-on:cart-updated.window="cartUpdated">
+                                     x-data="cartHandler({{ $product->id }}, {{ $product->price }})">
+{{--                                     x-on:cart-updated.window="cartUpdated">--}}
                                     <div class="tf-product-info-quantity" style="margin-bottom: 30px">
                                         <div class="quantity-title fw-6">Quantity</div>
                                         <div class="wg-quantity">
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="tf-product-info-buy-button" style="margin-bottom: 30px">
                                         <form>
-                                            <div x-on:click="updateCart"
+                                            <div x-on:click="addToCart"
                                                  class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
                                                 <span>{{ __('Add to cart') }} -&nbsp;</span>
                                                 <span class="tf-qty-price total-price" x-text="formattedPrice"></span>

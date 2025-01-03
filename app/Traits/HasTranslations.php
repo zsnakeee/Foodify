@@ -18,6 +18,7 @@ trait HasTranslations
         foreach ($translatables as $field) {
             $attributes[$field] = $this->getTranslation($field, app()->getLocale());
         }
+
         return array_merge($attributes, $this->relationsToArray());
     }
 }

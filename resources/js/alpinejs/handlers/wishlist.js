@@ -4,7 +4,7 @@ export default (productId, initialIsWished = false) => ({
     toggleWishlist() {
         this.loading = true;
         this.isWished = !this.isWished;
-        Livewire.dispatch('toggle-wishlist', {id: productId});
+        Livewire.dispatch('wishlist-toggle', {id: productId});
     },
     wishlistUpdated(event) {
         if (event.detail.id === productId) {

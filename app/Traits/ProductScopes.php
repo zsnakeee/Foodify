@@ -54,9 +54,9 @@ trait ProductScopes
     public function scopeFilter($query, $filters)
     {
         return $query
-            ->when($filters['category'], fn($q, $category) => $q->where('category_id', $category))
-            ->when($filters['brand'], fn($q, $brand) => $q->where('brand_id', $brand))
-            ->when($filters['priceRange'], fn($q, $priceRange) => $q->whereBetween('price', $priceRange))
-            ->when($filters['availability'], fn($q, $availability) => $q->where('quantity', $availability === 'in_stock' ? '>' : '=', 0));
+            ->when($filters['category'], fn ($q, $category) => $q->where('category_id', $category))
+            ->when($filters['brand'], fn ($q, $brand) => $q->where('brand_id', $brand))
+            ->when($filters['priceRange'], fn ($q, $priceRange) => $q->whereBetween('price', $priceRange))
+            ->when($filters['availability'], fn ($q, $availability) => $q->where('quantity', $availability === 'in_stock' ? '>' : '=', 0));
     }
 }

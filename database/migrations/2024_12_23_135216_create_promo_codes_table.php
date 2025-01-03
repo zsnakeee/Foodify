@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -22,8 +23,10 @@ return new class extends Migration {
             $table->integer('usage_limit')->default(0);
             $table->integer('usage_count')->default(0);
             $table->integer('usage_per_user')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
+
     }
 
     /**

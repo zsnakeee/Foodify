@@ -10,22 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
-
 class Category extends Model
 {
+    use CategoryScopes;
+
     /** @use HasFactory<CategoryFactory> */
     use HasFactory;
     use HasImage;
     use HasTranslations;
-    use CategoryScopes;
-
 
     protected $fillable = [
         'name',
         'description',
         'slug',
         'image',
-        'is_active'
+        'is_active',
     ];
 
     public array $translatable = ['name', 'description', 'slug'];

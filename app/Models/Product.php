@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
+use App\Services\Cart\ExtendedCart;
 use App\Traits\HasImage;
+use App\Traits\HasTranslations;
 use App\Traits\ProductScopes;
-use App\Traits\RecentlyViewed;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\HasTranslations;
 
 class Product extends Model
 {
     /** @use HasFactory<ProductFactory> */
     use HasFactory;
+
     use HasImage;
     use HasTranslations;
     use ProductScopes;
-    use RecentlyViewed;
 
     protected $fillable = [
         'name',
@@ -67,16 +67,6 @@ class Product extends Model
         return $this->hasMany(Discount::class);
     }
 
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    public function wishlists(): HasMany
-    {
-        return $this->hasMany(Wishlist::class);
-    }
-
     public function getFormattedPriceAttribute(): string
     {
         return \Number::currency($this->price, '', app()->getLocale());
@@ -84,13 +74,13 @@ class Product extends Model
 
     public function isWished(): bool
     {
-        $wishlist = app(\App\Services\Product\Wishlist::class);
+        $wishlist = app(ExtendedCart::class)->wishlist();
         return $wishlist->has($this);
     }
 
     public function isCarted(): bool
     {
-        $cart = app(\App\Services\Product\Cart::class);
+        $cart = app(ExtendedCart::class)->shopping();
         return $cart->has($this);
     }
 
@@ -106,17 +96,16 @@ class Product extends Model
         $attributes['description'] = $this->description;
         $attributes['is_wished'] = $this->isWished();
         $attributes['is_carted'] = $this->isCarted();
+
         return json_encode($attributes);
     }
 
-
-
-//    public function toArray(): array
-//    {
-//        $array = parent::toArray();
-//        foreach ($this->translatable as $field) {
-//            $array[$field] = $this->getTranslation($field, app()->getLocale());
-//        }
-//        return $array;
-//    }
+    //    public function toArray(): array
+    //    {
+    //        $array = parent::toArray();
+    //        foreach ($this->translatable as $field) {
+    //            $array[$field] = $this->getTranslation($field, app()->getLocale());
+    //        }
+    //        return $array;
+    //    }
 }

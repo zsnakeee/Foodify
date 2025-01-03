@@ -16,4 +16,3 @@ import './alpinejs/component.js';
 window.bootstrap = bootstrap;
 
 
-

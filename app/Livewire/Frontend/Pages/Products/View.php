@@ -3,8 +3,7 @@
 namespace App\Livewire\Frontend\Pages\Products;
 
 use App\Models\Product;
-use App\Services\Product\Cart;
-use App\Services\Product\RecentViews;
+use App\Services\Cart\ExtendedCart;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -12,15 +11,17 @@ use Livewire\Component;
 class View extends Component
 {
     public $product;
+
     public $holdersCount = 0;
+
     public $recentProducts = [];
 
-    public function mount($product, RecentViews $recentViewsService): void
+    public function mount($product, ExtendedCart $cartService)
     {
         $this->product = Product::whereJsonContainsLocale('slug', app()->getLocale(), $product)->firstOrFail();
-        $this->holdersCount = $this->product->carts->count();
-        $this->recentProducts = Product::whereIn('id', $recentViewsService->get(10) ?? [])->where('id', '!=', $this->product->id)->get();
-        $recentViewsService->add($this->product);
+        $this->holdersCount = $cartService->countItems();
+        $this->recentProducts = Product::whereIn('id', $cartService->recentViews()->content()->pluck('id')->all() ?? [])->where('id', '!=', $this->product->id)->get();
+        $cartService->recentViews()->add($this->product);
     }
 
     public function render()

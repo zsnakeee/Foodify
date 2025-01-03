@@ -21,6 +21,7 @@ class ProductFactory extends Factory
     {
         $isFeatured = $this->faker->boolean;
         $isBest = $this->faker->boolean;
+
         return [
             'brand_id' => Brand::pluck('id')->random(),
             'category_id' => Category::pluck('id')->random(),
@@ -40,16 +41,14 @@ class ProductFactory extends Factory
         ];
     }
 
-
-//    private function image($trending, $featured): string
-//    {
-//        if ($trending)
-//            return "products/trending-product-{$this->faker->numberBetween(1, 5)}.png";
-//        if ($featured)
-//            return "products/feature-product-{$this->faker->numberBetween(1, 14)}.png";
-//
-//        return "products/product-{$this->faker->numberBetween(1, 7)}.png";
-//    }
-
+    //    private function image($trending, $featured): string
+    //    {
+    //        if ($trending)
+    //            return "products/trending-product-{$this->faker->numberBetween(1, 5)}.png";
+    //        if ($featured)
+    //            return "products/feature-product-{$this->faker->numberBetween(1, 14)}.png";
+    //
+    //        return "products/product-{$this->faker->numberBetween(1, 7)}.png";
+    //    }
 
 }

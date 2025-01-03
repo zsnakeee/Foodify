@@ -348,14 +348,8 @@
                                          alt="{{ $product->name }}">
                                 </a>
                                 <div class="list-product-btn absolute-2">
-                                    <x-wishlist-btn :product="$product"/>
-
-                                    <div class="box-icon bg_white quickview tf-btn-loading"
-                                         x-data="{ product: {{ $product->attributesForQuickView() }} }"
-                                         x-on:click="$dispatch('quick-view', product)">
-                                        <span class="icon icon-view"></span>
-                                        <span class="tooltip">Quick View</span>
-                                    </div>
+                                    <x-actions.wishlist-button :product="$product"/>
+                                    <x-actions.quick-view-button :product="$product"/>
                                 </div>
                             </div>
                             <div class="card-product-info">
@@ -365,18 +359,15 @@
                                     <span class="price fw-6">{{ $product->formatted_price }}</span>
                                 </div>
                                 <div class="list-product-btn">
-                                    <a
-                                        {{--                                        x-data="cartHandler({{ $product->id }}, {{ $product->isWished() ? 'true' : 'false' }})"--}}
-                                        {{--                                        x-data="{ loading: false }"--}}
-                                        {{--                                        @click="loading = true; $dispatch('add-to-cart');"--}}
-                                        {{--                                        x-on:cart-updated.window="console.log('Added to cart'); loading = false;"--}}
-                                        {{--                                        href="#quick_add"--}}
-                                        {{--                                        data-bs-toggle="modal"--}}
-                                        class="box-icon quick-add tf-btn-loading">
-                                        {{--                                        :class="{ 'loading': loading }">--}}
+                                    <div
+                                        x-data="cartHandler({{ $product->id }}, {{ $product->price }}, 1), { loading: false }"
+                                        x-on:cart-updated.window="loading = false; $dispatch('open-cart')"
+                                        x-on:click="addToCart"
+                                        class="box-icon quick-add tf-btn-loading"
+                                        :class="{ 'loading': loading }">
                                         <span class="icon icon-bag"></span>
                                         <span class="tooltip">Add to cart</span>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

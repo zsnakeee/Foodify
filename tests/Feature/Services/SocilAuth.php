@@ -4,7 +4,6 @@ use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Two\GoogleProvider;
-use Laravel\Socialite\Two\User as SocialiteUser;
 
 it('redirects to the correct Google sign in url', function () {
     $driver = Mockery::mock(GoogleProvider::class);

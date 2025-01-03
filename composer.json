@@ -14,12 +14,13 @@
         "masmerise/livewire-toaster": "^2.6",
         "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-permission": "^6.10",
-        "spatie/laravel-translatable": "^6.9"
+        "spatie/laravel-translatable": "^6.9",
+        "zsnakeee/shoppingcart": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.19",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",

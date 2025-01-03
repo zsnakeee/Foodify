@@ -4,11 +4,10 @@ namespace App\Livewire\Frontend\Pages;
 
 use App\Models\Category;
 use App\Models\Product;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 #[Layout('layouts.app')]
 #[Title('Home Page')]
@@ -42,6 +41,4 @@ class HomePage extends Component
     {
         return Product::featured()->limit(8)->get();
     }
-
-
 }

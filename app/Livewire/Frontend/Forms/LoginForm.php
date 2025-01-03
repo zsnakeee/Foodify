@@ -10,8 +10,10 @@ class LoginForm extends Component
 {
     #[Rule(['required', 'email', 'max:255'])]
     public string $email = '';
+
     #[Rule(['required', 'string'])]
     public string $password = '';
+
     #[Rule(['boolean'])]
     public bool $remember = false;
 
@@ -32,6 +34,7 @@ class LoginForm extends Component
     public function logout(): RedirectResponse
     {
         auth()?->logout();
+
         return redirect()->route('frontend.home');
     }
 }

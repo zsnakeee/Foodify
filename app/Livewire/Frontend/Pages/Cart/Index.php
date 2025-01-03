@@ -2,29 +2,82 @@
 
 namespace App\Livewire\Frontend\Pages\Cart;
 
-use App\Models\Product;
-use App\Services\Product\Cart;
+use App\Models\PromoCode;
+use App\Services\Cart\ExtendedCart;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('layouts.app')]
 #[Title('Cart')]
 class Index extends Component
 {
-    public function render(Cart $cartService)
+    protected ExtendedCart $cart;
+
+    public array $products = [];
+
+    public $total = 0;
+
+    #[Validate('required|string')]
+    public $promoCode = '';
+
+    public $discount = 0;
+
+    public $priceTotal = 0;
+
+    public function __construct()
     {
-        $cart = $cartService->all();
-        $products = Product::whereIn('id', array_keys($cart))->get()
-            ->unique()
-            ->map(function ($product) use ($cart) {
-                $product->cart_quantity = $cart[$product->id]['quantity'];
-                return $product;
-            });
+        $this->cart = app(ExtendedCart::class)->shopping();
+        $this->promoCode = $this->cart->content()->first()->promoCode;
+    }
 
-//        dd($products);
+    public function render()
+    {
+        $this->products = $this->cart->products();
+        $this->total = $this->cart->total();
+        $this->discount = $this->cart->discount();
+        $this->priceTotal = $this->cart->priceTotal();
 
+        return view('livewire.frontend.pages.cart.index');
+    }
 
-        return view('livewire.frontend.pages.cart.index')->with(compact('products'));
+    public function applyPromoCode(): void
+    {
+        $this->validate();
+
+        $promoCode = PromoCode::where('code', $this->promoCode)->first();
+        if (! $promoCode) {
+            $this->addError('promoCode', __('Promo code not found'));
+
+            return;
+        }
+
+        $error = $promoCode->validate();
+        if ($error) {
+            $this->addError('promoCode', $error);
+
+            return;
+        }
+
+        $this->cart->applyPromoCode($promoCode);
+        $this->fireCartUpdatedEvent();
+    }
+
+    public function removePromoCode(): void
+    {
+        $this->cart->removePromoCode();
+        $this->promoCode = '';
+        $this->fireCartUpdatedEvent();
+    }
+
+    protected function fireCartUpdatedEvent(): void
+    {
+        $this->dispatch('cart-updated',
+            products: $this->cart->products(),
+            total: $this->cart->total(),
+            subtotal: $this->cart->priceTotal(),
+            discount: $this->cart->discount(),
+        );
     }
 }

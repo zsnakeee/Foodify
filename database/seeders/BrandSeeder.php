@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Str;
 
@@ -39,7 +38,6 @@ class BrandSeeder extends Seeder
             'الملكة',
             'ليبتون',
         ];
-
 
         $names = ['Dior', 'Sailor', 'Tomosa', 'Cofox', 'Adidssi', 'Paopi', 'Lotoria', 'Monjon', 'Adidas', 'Carogi'];
         foreach ($names as $key => $name) {

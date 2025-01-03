@@ -12,9 +12,11 @@ class Brand extends Model
 {
     /** @use HasFactory<BrandFactory> */
     use HasFactory;
+
     use HasTranslations;
 
     protected $fillable = ['name', 'slug', 'description', 'image'];
+
     public array $translatable = ['name', 'slug', 'description'];
 
     public function products(): HasMany

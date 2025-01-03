@@ -135,13 +135,6 @@
                                     </div>
                                 </li>
                             </div>
-                            {{--                            <li class="nav-account">--}}
-                            {{--                                <a href="" class="nav-icon-item align-items-center gap-10">--}}
-                            {{--                                    <img src="{{ auth()->user()->avatar }}" alt="avatar"--}}
-                            {{--                                         class="rounded-full" width="30">--}}
-                            {{--                                    <span class="text">{{ auth()->user()->name }}</span>--}}
-                            {{--                                </a>--}}
-                            {{--                            </li>--}}
                         @endguest
 
                         <li class="nav-wishlist">
@@ -149,9 +142,10 @@
                                 <i class="icon icon-heart"></i><span class="text">Wishlist</span>
                             </a>
                         </li>
-                        <li class="nav-cart cart-lg">
+                        <li class="nav-cart cart-lg" x-data>
                             <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item">
-                                <i class="icon icon-bag"></i><span class="count-box">6</span>
+                                <i class="icon icon-bag"></i>
+                                <span class="count-box" x-text="$store.cartCount"></span>
                             </a>
                         </li>
                     </ul>

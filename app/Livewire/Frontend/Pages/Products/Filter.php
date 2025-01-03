@@ -11,17 +11,27 @@ use Livewire\Component;
 class Filter extends Component
 {
     public $categories = [];
+
     public $brands = [];
+
     public $minPrice = 0;
+
     public $maxPrice = 0;
+
     public $inStockCount = 0;
+
     public $outOfStockCount = 0;
 
     public $availability = 'all';
+
     public $selectedCategory;
+
     public $selectedBrand;
+
     public $selectedMinPrice;
+
     public $selectedMaxPrice;
+
     public $hasFilters = false;
 
     #[Url]
@@ -43,6 +53,7 @@ class Filter extends Component
     {
         $this->categories = $this->categories ? $this->categories->loadCount('products') : [];
         $this->brands = $this->brands ? $this->brands->loadCount('products') : [];
+
         return view('livewire.frontend.pages.products.filter');
     }
 
@@ -65,7 +76,7 @@ class Filter extends Component
         $this->selectedMinPrice = $this->minPrice;
         $this->selectedMaxPrice = $this->maxPrice;
         $this->availability = 'all';
-        $this->filters = collect($this->filters)->map(fn() => null)->toArray();
+        $this->filters = collect($this->filters)->map(fn () => null)->toArray();
         $this->updateAvailabilityCount();
         $this->updateHasFilter();
         $this->dispatch('applyFilters', $this->filters);
@@ -84,7 +95,6 @@ class Filter extends Component
         $this->updateHasFilter();
         $this->dispatch('applyFilters', $this->filters);
     }
-
 
     protected function handleCategoryAndBrand(): void
     {

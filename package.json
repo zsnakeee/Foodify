@@ -20,6 +20,7 @@
         "@rollup/plugin-inject": "^5.0.5",
         "animate.css": "^4.1.1",
         "aos": "^2.3.4",
+        "block-ui": "^2.70.1",
         "bootstrap": "^5.3.3",
         "bootstrap-select": "^1.13.18",
         "jquery": "^3.7.1",
