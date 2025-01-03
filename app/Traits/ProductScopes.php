@@ -59,4 +59,11 @@ trait ProductScopes
             ->when($filters['priceRange'], fn ($q, $priceRange) => $q->whereBetween('price', $priceRange))
             ->when($filters['availability'], fn ($q, $availability) => $q->where('quantity', $availability === 'in_stock' ? '>' : '=', 0));
     }
+
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->where('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->orWhere('code', 'like', "%$search%");
+    }
 }

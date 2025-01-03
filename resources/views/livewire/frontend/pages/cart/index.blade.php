@@ -105,7 +105,7 @@
                                      wire:ignore.self>
                                     <div class="accordion-shipping-content">
                                         <fieldset class="field">
-                                            <label class="label">Code</label>
+                                            <label class="label">{{ __('Code') }}</label>
                                             <input type="text" wire:model="promoCode"
                                                    class="form-control @error('promoCode') is-invalid @enderror">
                                             @error('promoCode') <span
@@ -116,13 +116,13 @@
                                             <button
                                                 wire:click="removePromoCode"
                                                 class="tf-btn animate-hover-btn radius-3 justify-content-center bg-warning">
-                                                <span>Remove</span>
+                                                <span>{{ __('Remove') }}</span>
                                             </button>
                                         @else
                                             <button
                                                 wire:click="applyPromoCode"
                                                 class="tf-btn btn-fill animate-hover-btn radius-3 justify-content-center">
-                                                <span>Apply</span>
+                                                <span>{{ __('Apply') }}</span>
                                             </button>
                                         @endif
                                         {{--                                        <button--}}

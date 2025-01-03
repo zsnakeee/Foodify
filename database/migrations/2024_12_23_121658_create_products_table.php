@@ -30,6 +30,8 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_best')->default(false);
             $table->boolean('is_hot')->default(false);
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

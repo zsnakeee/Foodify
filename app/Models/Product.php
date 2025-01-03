@@ -75,12 +75,14 @@ class Product extends Model
     public function isWished(): bool
     {
         $wishlist = app(ExtendedCart::class)->wishlist();
+
         return $wishlist->has($this);
     }
 
     public function isCarted(): bool
     {
         $cart = app(ExtendedCart::class)->shopping();
+
         return $cart->has($this);
     }
 

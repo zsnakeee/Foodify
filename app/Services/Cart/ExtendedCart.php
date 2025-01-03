@@ -24,6 +24,11 @@ class ExtendedCart extends Cart
         return $this->instance('shopping');
     }
 
+    public function recentSearches(): ExtendedCart
+    {
+        return $this->instance('recentSearches');
+    }
+
     public function all(): array
     {
         return $this->content()->all();
@@ -77,33 +82,6 @@ class ExtendedCart extends Cart
         parent::remove($rowId);
     }
 
-//    public function total($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
-//    {
-//        if ($decimals || $decimalPoint || $thousandSeperator) {
-//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
-//        }
-//
-//        return format_price($this->totalFloat());
-//    }
-//
-//    public function priceTotal($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
-//    {
-//        if ($decimals || $decimalPoint || $thousandSeperator) {
-//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
-//        }
-//
-//        return format_price($this->priceTotalFloat());
-//    }
-//
-//    public function discount($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
-//    {
-//        if ($decimals || $decimalPoint || $thousandSeperator) {
-//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
-//        }
-//
-//        return format_price($this->discountFloat());
-//    }
-
     public function products()
     {
         return $this->content()->map(function ($item, $rowId) {
@@ -115,7 +93,7 @@ class ExtendedCart extends Cart
             $product->rowId = $rowId;
 
             return $product;
-        });
+        })->reverse();
     }
 
     public function applyPromoCode(PromoCode $promo): void

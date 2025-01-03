@@ -18,80 +18,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 col-6 tf-md-hidden">
-                    <div class="tf-form-search">
-                        <form action="https://themesflat.co/html/ecomus/home-search.html" class="search-box">
-                            <input type="text" placeholder="Search product">
-                            <button class="tf-btn"><i class="icon icon-search"></i></button>
-                        </form>
-                        <div class="search-suggests-results">
-                            <div class="search-suggests-results-inner">
-                                <ul>
-                                    <li>
-                                        <a class="search-result-item" href="product-detail.html">
-                                            <div class="img-box">
-                                                <img src="{{ asset("assets/images/item/search-grocey1.jpg") }}" alt="">
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">Berry World Blueberries</p>
-                                                <div class="price">$4.00</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="search-result-item" href="product-detail.html">
-                                            <div class="img-box">
-                                                <img src="{{ asset("assets/images/item/search-grocey2.jpg") }}" alt="">
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">Berry World Strawberries</p>
-                                                <div class="d-flex gap-10">
-                                                    <span class="old-price">$40.25</span>
-                                                    <span class="new-price">$30.25</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="search-result-item" href="product-detail.html">
-                                            <div class="img-box">
-                                                <img src="{{ asset("assets/images/item/search-grocey3.jpg") }}" alt="">
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">Fish Said Fred Sea Bass Fillets</p>
-                                                <div class="price">$6.00</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="search-result-item" href="product-detail.html">
-                                            <div class="img-box">
-                                                <img src="{{ asset("assets/images/item/search-grocey4.jpg") }}" alt="">
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">M&S Full-Bodied Greek Kalamata Olives</p>
-                                                <div class="price">$7.00</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="search-result-item" href="product-detail.html">
-                                            <div class="img-box">
-                                                <img src="{{ asset("assets/images/item/search-grocey5.jpg") }}" alt="">
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">M&S Roast Lamb Dinner</p>
-                                                <div class="d-flex gap-10">
-                                                    <span class="old-price">$4.70</span>
-                                                    <span class="new-price">$3.70</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <livewire:frontend.components.product-search/>
                 </div>
                 <div class="col-md-4 col-6">
                     <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
@@ -112,10 +39,12 @@
                                     <div class="sub-menu submenu-default">
                                         <ul class="menu-list">
                                             <li class="d-flex">
-                                                <a href="" class="menu-link-text link text_black-2">Profile</a>
+                                                <a href=""
+                                                   class="menu-link-text link text_black-2">{{ __('Profile') }}</a>
                                             </li>
                                             <li class="d-flex">
-                                                <a href="" class="menu-link-text link text_black-2">Orders</a>
+                                                <a href=""
+                                                   class="menu-link-text link text_black-2">{{ __('Orders') }}</a>
                                             </li>
                                             <li class="d-flex">
                                                 <a wire:navigate href="{{ route('wishlist') }}"

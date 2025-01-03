@@ -17,8 +17,9 @@ class LocaleSwitcher extends Component
     public function changeLocale($locale): void
     {
         session()->put('locale', $locale);
-        Toaster::success(__('Language changed to :locale', ['locale' => $locale]));
-        $this->js('$store.locale.set("'.$locale.'"); window.location.reload();');
+        Toaster::success($locale === 'en' ? __('Language changed to English') : __('تم تغيير اللغة إلى العربية'));
+        $this->js('$store.locale.set("'.$locale.'");');
+        $this->redirect(request()->header('referer'));
     }
 
     #[On('changeCurrency')]
@@ -26,6 +27,7 @@ class LocaleSwitcher extends Component
     {
         session()->put('currency', $currency);
         Toaster::success(__('Currency changed to :currency', ['currency' => $currency]));
-        $this->js('$store.currency.set("'.$currency.'"); window.location.reload();');
+        $this->js('$store.currency.set("'.$currency.'");');
+        $this->redirect(request()->header('referer'));
     }
 }

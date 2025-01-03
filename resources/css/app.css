@@ -106,3 +106,38 @@
     background-color: #f9f9f9; /* Slightly off-white background */
     pointer-events: none; /* Disable all pointer events */
 }
+
+/* Search Product Skeleton Loader */
+.search-product-skeleton .skeleton-box {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    animation: search-product-pulse 1.5s infinite;
+}
+
+.search-product-skeleton .skeleton-text {
+    height: 16px;
+    margin: 4px 0;
+}
+
+.search-product-skeleton .img-box {
+    width: 50px;
+    height: 50px;
+}
+
+.search-product-skeleton .box-content {
+    margin-left: 10px;
+    width: 100%;
+}
+
+@keyframes search-product-pulse {
+    0% {
+        background-color: #e0e0e0;
+    }
+    50% {
+        background-color: #f0f0f0;
+    }
+    100% {
+        background-color: #e0e0e0;
+    }
+}
+
