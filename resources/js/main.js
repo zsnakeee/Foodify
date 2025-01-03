@@ -68,27 +68,6 @@ import initCarousel from "./carousel.js";
         },
     };
 
-    /* selectImages
-    -------------------------------------------------------------------------------------*/
-    var selectImages = function () {
-        if ($(".image-select").length > 0) {
-            const selectIMG = $(".image-select");
-            selectIMG.find("option").each((idx, elem) => {
-                const selectOption = $(elem);
-                const imgURL = selectOption.attr("data-thumbnail");
-                if (imgURL) {
-                    selectOption.attr(
-                        "data-content",
-                        "<img src='%i'/> %s"
-                            .replace(/%i/, imgURL)
-                            .replace(/%s/, selectOption.text())
-                    );
-                }
-            });
-            selectIMG.selectpicker();
-        }
-    };
-
     /* preloader
     -------------------------------------------------------------------------------------*/
     const preloader = function () {
@@ -863,7 +842,7 @@ import initCarousel from "./carousel.js";
     /* RTL
     ------------------------------------------------------------------------------------- */
     var RTL = function () {
-        if (localStorage.getItem("dir") === "rtl") {
+        if ($("html").attr("dir") === "rtl") {
             $("html").attr("dir", "rtl");
             $("body").addClass("rtl");
             $('#toggle-rtl').text('ltr');
@@ -872,19 +851,30 @@ import initCarousel from "./carousel.js";
             $("html").attr("dir", "ltr");
             $("body").removeClass("rtl");
             $('#toggle-rtl').text('rtl');
-
         }
-        $("#toggle-rtl").on("click", function () {
-            if ($("html").attr("dir") === "rtl") {
-                localStorage.setItem("dir", "ltr");
-                $('#toggle-rtl').text('rtl');
-
-            } else {
-                localStorage.setItem("dir", "rtl");
-                $('#toggle-rtl').text('ltr');
-            }
-            location.reload();
-        });
+        //
+        //
+        // if (localStorage.getItem("dir") === "rtl") {
+        //     $("html").attr("dir", "rtl");
+        //     $("body").addClass("rtl");
+        //     $('#toggle-rtl').text('ltr');
+        //     $(".tf-slideshow .tf-btn,.view-all-demo .tf-btn, .pagination-link, .pagination-item").find(".icon").removeClass("icon-arrow-right").addClass("icon-arrow-left");
+        // } else {
+        //     $("html").attr("dir", "ltr");
+        //     $("body").removeClass("rtl");
+        //     $('#toggle-rtl').text('rtl');
+        // }
+        // $("#toggle-rtl").on("click", function () {
+        //     if ($("html").attr("dir") === "rtl") {
+        //         localStorage.setItem("dir", "ltr");
+        //         $('#toggle-rtl').text('rtl');
+        //
+        //     } else {
+        //         localStorage.setItem("dir", "rtl");
+        //         $('#toggle-rtl').text('ltr');
+        //     }
+        //     location.reload();
+        // });
     };
 
 
@@ -920,7 +910,6 @@ import initCarousel from "./carousel.js";
     // Dom Ready
     $(function () {
         initCarousel();
-        selectImages();
         deleteFile();
         goTop();
         closeAnnouncement();
@@ -960,6 +949,7 @@ import initCarousel from "./carousel.js";
     document.addEventListener('livewire:navigated', () => {
         preloader();
         initCarousel();
+        RTL();
     });
 })(jQuery);
 

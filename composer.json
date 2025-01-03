@@ -3,7 +3,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -13,6 +16,7 @@
         "livewire/livewire": "^3.5",
         "masmerise/livewire-toaster": "^2.6",
         "propaganistas/laravel-phone": "^5.3",
+        "reliqarts/laravel-auto-translator": "^1.0",
         "spatie/laravel-permission": "^6.10",
         "spatie/laravel-translatable": "^6.9",
         "zsnakeee/shoppingcart": "^1.0"
@@ -32,7 +36,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

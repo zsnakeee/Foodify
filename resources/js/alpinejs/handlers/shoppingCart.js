@@ -1,9 +1,10 @@
-export default (products = [], total, currency = 'USD', locale = 'en') => ({
+export default (products = [], total, subTotal) => ({
     products: products,
-    currency: currency,
-    locale: locale,
+    currency: Alpine.store('currency').get,
+    locale: Alpine.store('locale').get,
     total: total,
     subTotal: total,
+    discount: 0,
     init() {
         Alpine.store('cartCount', Object.keys(this.products).length);
     },
@@ -14,10 +15,11 @@ export default (products = [], total, currency = 'USD', locale = 'en') => ({
         this.products = [];
         // Replace it with the new array
         setTimeout(() => {
-            this.products = event.detail.products;
-            this.total = event.detail.total;
-            this.subTotal = event.detail?.subTotal || event.detail.total;
-            this.discount = event.detail?.discount || 0;
+            const {products, total, subTotal, discount} = event.detail;
+            this.products = products;
+            this.total = total;
+            this.subTotal = subTotal || total;
+            this.discount = discount || 0;
             Alpine.store('cartCount', Object.keys(this.products).length);
         }, 0); // Ensure Alpine re-renders by setting a timeout
     },

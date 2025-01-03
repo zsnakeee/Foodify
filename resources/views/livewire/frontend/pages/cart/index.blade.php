@@ -10,7 +10,7 @@
 
             <div class="tf-page-cart-wrap"
                  wire:ignore.self
-                 x-data="{ ...shoppingCartHandler(@js($products), '{{ $total }}'),  discount: {{ $discount }}, subTotal: {{ $priceTotal }} }"
+                 x-data="{ ...shoppingCartHandler(@js($products), '{{ $total }}'),  discount: '{{ $discount }}', subTotal: '{{ $priceTotal }}' }"
                  x-on:cart-updated.window="refreshCart($event)">
                 <div class="tf-page-cart-item">
                     <form>
@@ -40,7 +40,7 @@
                                         </div>
                                     </td>
                                     <td class="tf-cart-item_price">
-                                        <div class="cart-price" x-text="formatPrice(product.price)"></div>
+                                        <div class="cart-price" x-text="formattedPrice"></div>
                                     </td>
                                     <td class="tf-cart-item_quantity">
                                         <div class="cart-quantity">
@@ -62,7 +62,7 @@
                                         </div>
                                     </td>
                                     <td class="tf-cart-item_total" cart-data-title="Total">
-                                        <div class="cart-total" x-text="formattedPrice"></div>
+                                        <div class="cart-total" x-text="formattedTotal"></div>
                                     </td>
                                 </tr>
                             </template>

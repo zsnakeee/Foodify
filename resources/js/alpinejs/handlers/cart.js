@@ -1,8 +1,10 @@
-export default (productId, initialPrice, initialQuantity = 1, currency = 'USD', locale = 'en') => ({
+export default (productId, initialPrice, initialQuantity = 1) => ({
     quantity: initialQuantity,
     price: initialPrice,
     total: initialPrice * initialQuantity,
     loading: false,
+    currency: Alpine.store('currency').get,
+    locale: Alpine.store('locale').get,
     addToCart() {
         if (this.quantity === '')
             return;
@@ -25,19 +27,15 @@ export default (productId, initialPrice, initialQuantity = 1, currency = 'USD', 
         }
     },
     formattedPrice() {
-        return new Intl.NumberFormat(locale, {
-            style: 'currency',
-            currency: currency
-        }).format(this.total);
+        return this.formatPrice(this.price);
+    },
+    formattedTotal() {
+        return this.formatPrice(this.total);
     },
     formatPrice(price) {
-        return new Intl.NumberFormat(locale, {
+        return new Intl.NumberFormat(this.locale, {
             style: 'currency',
-            currency: currency
+            currency: this.currency
         }).format(price);
     },
-    cartUpdated(event) {
-        this.loading = false;
-        // this.quantity = event.detail.quantity;
-    }
 });

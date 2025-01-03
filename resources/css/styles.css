@@ -1839,6 +1839,7 @@ label {
 
 .top-bar-language .dropdown-menu {
     inset: 0px !important;
+    min-width: 100%;
 }
 
 .top-bar-language .bootstrap-select.image-select.style-default > button {
@@ -5892,11 +5893,11 @@ header.header-bg {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 18px 0px;
 }
 
-.dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a {
+.dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a {
     padding: 5px 0;
 }
 
-.dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a .text {
+.dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a .text {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -5906,17 +5907,17 @@ header.header-bg {
     line-height: 16px;
 }
 
-.dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a .text img {
+.dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a .text img {
     width: 16px;
     height: 12px;
 }
 
-.dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a:active, .dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a.active {
+.dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a:active, .dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a.active {
     color: var(--primary) !important;
     background-color: unset !important;
 }
 
-.dropdown.bootstrap-select.image-select.style-default > .dropdown-menu ul.dropdown-menu > li > a:hover {
+.dropdown.bootstrap-select.image-select.style-default > ul.dropdown-menu > li > a:hover {
     color: rgba(0, 0, 0, 0.8);
     background-color: unset;
 }
@@ -22506,6 +22507,9 @@ blockquote .text {
     align-items: center;
     justify-content: center;
 }
+.rtl .top-bar-language .dropdown-menu {
+    inset: 0px auto auto 0px !important;
+}
 
 .rtl .tf-icon-box.style-row {
     direction: rtl;
@@ -22615,6 +22619,10 @@ blockquote .text {
 
 .rtl .box-sw-navigation {
     direction: ltr;
+}
+
+.rtl .title {
+    direction: rtl;
 }
 
 .rtl .tf-currencies {
@@ -22823,6 +22831,11 @@ blockquote .text {
 .rtl .btn-sidebar-style2 {
     left: auto;
     right: 0;
+}
+
+.rtl .box-nav-ul .submenu-default {
+    right: -110px;
+    left: unset;
 }
 
 .rtl .btn-sidebar-style2.right {

@@ -83,7 +83,7 @@
                                 <div class="tf-cart-totals-discounts">
                                     <div class="tf-cart-total">Subtotal</div>
                                     <div class="tf-totals-total-value fw-6"
-                                         x-text="subTotal">
+                                         x-text="formattedSubTotal">
                                     </div>
                                 </div>
                                 <div class="tf-cart-tax">Taxes and shipping calculated at checkout</div>

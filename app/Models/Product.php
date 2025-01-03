@@ -69,7 +69,7 @@ class Product extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return \Number::currency($this->price, '', app()->getLocale());
+        return format_price($this->price);
     }
 
     public function isWished(): bool

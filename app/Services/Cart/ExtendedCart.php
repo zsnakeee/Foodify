@@ -77,7 +77,34 @@ class ExtendedCart extends Cart
         parent::remove($rowId);
     }
 
-    public function products(): array
+//    public function total($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
+//    {
+//        if ($decimals || $decimalPoint || $thousandSeperator) {
+//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
+//        }
+//
+//        return format_price($this->totalFloat());
+//    }
+//
+//    public function priceTotal($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
+//    {
+//        if ($decimals || $decimalPoint || $thousandSeperator) {
+//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
+//        }
+//
+//        return format_price($this->priceTotalFloat());
+//    }
+//
+//    public function discount($decimals = null, $decimalPoint = null, $thousandSeperator = null): string
+//    {
+//        if ($decimals || $decimalPoint || $thousandSeperator) {
+//            return parent::total($decimals, $decimalPoint, $thousandSeperator);
+//        }
+//
+//        return format_price($this->discountFloat());
+//    }
+
+    public function products()
     {
         return $this->content()->map(function ($item, $rowId) {
             $product = Product::find($item->id);
@@ -88,7 +115,7 @@ class ExtendedCart extends Cart
             $product->rowId = $rowId;
 
             return $product;
-        })->all();
+        });
     }
 
     public function applyPromoCode(PromoCode $promo): void

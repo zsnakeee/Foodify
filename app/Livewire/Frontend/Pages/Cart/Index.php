@@ -15,7 +15,7 @@ class Index extends Component
 {
     protected ExtendedCart $cart;
 
-    public array $products = [];
+    public $products = [];
 
     public $total = 0;
 
@@ -35,9 +35,9 @@ class Index extends Component
     public function render()
     {
         $this->products = $this->cart->products();
-        $this->total = $this->cart->total();
-        $this->discount = $this->cart->discount();
-        $this->priceTotal = $this->cart->priceTotal();
+        $this->total = $this->cart->totalFloat();
+        $this->discount = $this->cart->discountFloat();
+        $this->priceTotal = $this->cart->priceTotalFloat();
 
         return view('livewire.frontend.pages.cart.index');
     }
@@ -75,9 +75,9 @@ class Index extends Component
     {
         $this->dispatch('cart-updated',
             products: $this->cart->products(),
-            total: $this->cart->total(),
-            subtotal: $this->cart->priceTotal(),
-            discount: $this->cart->discount(),
+            total: $this->cart->totalFloat(),
+            subTotal: $this->cart->priceTotalFloat(),
+            discount: $this->cart->discountFloat(),
         );
     }
 }

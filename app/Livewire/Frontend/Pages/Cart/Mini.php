@@ -9,6 +9,7 @@ use Exception;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
+use Number;
 
 class Mini extends Component
 {
@@ -19,7 +20,7 @@ class Mini extends Component
     public function render(ExtendedCart $cart)
     {
         $this->products = $cart->shopping()->products();
-        $this->total = $cart->shopping()->total();
+        $this->total = $cart->shopping()->totalFloat();
 
         return view('livewire.frontend.pages.cart.mini');
     }
@@ -55,9 +56,9 @@ class Mini extends Component
         $this->dispatch('cart-updated',
             id: $id,
             products: $cart->shopping()->products(),
-            total: $cart->shopping()->total(),
-            subtotal: $cart->shopping()->priceTotal(),
-            discount: $cart->shopping()->discount(),
+            total: $cart->shopping()->totalFloat(),
+            subTotal: $cart->shopping()->priceTotalFloat(),
+            discount: $cart->shopping()->discountFloat(),
         );
     }
 

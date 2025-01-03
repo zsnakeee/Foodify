@@ -1,5 +1,4 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'bootstrap-select/dist/css/bootstrap-select.min.css';
 @import 'swiper/css';
 @import 'animate.css/animate.min.css';
 
@@ -7,6 +6,12 @@
 @import "../fonts/font-icons.css";
 @import "styles.css";
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+.rtl {
+    font-family: 'Cairo', sans-serif; /* 'Noto Sans Arabic', sans-serif; */
+}
 
 .bg-primary {
     background-color: var(--primary) !important;

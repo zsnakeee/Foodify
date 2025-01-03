@@ -63,7 +63,7 @@
     <section class="flat-spacing-30 flat-control-sw">
         <div class="container">
             <div class="flat-title flex-row justify-content-between px-0">
-                <span class="title fw-6 wow fadeInUp" data-wow-delay="0s">Featured Categories</span>
+                <span class="title fw-6 wow fadeInUp" data-wow-delay="0s">{{ __('Featured Categories') }}</span>
                 <div class="box-sw-navigation">
                     <div class="sw-dots style-2 medium sw-pagination-recent justify-content-center"></div>
                 </div>
@@ -101,7 +101,7 @@
     <section class="flat-spacing-8">
         <div class="container">
             <div class="flat-title flex-row justify-content-center px-0">
-                <span class="title fw-6 wow fadeInUp" data-wow-delay="0s">Deals Of The Day</span>
+                <span class="title fw-6 wow fadeInUp" data-wow-delay="0s">{{ __('Deals Of The Day') }}</span>
             </div>
             <div dir="ltr" class="swiper tf-sw-product-sell" data-preview="3" data-tablet="3" data-mobile="1"
                  data-space-lg="30" data-space-md="15" data-pagination="1" data-pagination-md="3"
@@ -320,11 +320,11 @@
         <div class="container">
             <div class="flat-animate-tab">
                 <div class="flat-title flat-title-tab flex-row justify-content-between px-0">
-                    <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">Popular products</span>
+                    <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">{{ __('Popular products') }}</span>
                     <ul class="widget-tab-5" role="tablist">
                         <li class="nav-tab-item">
                             <a wire:navigate href="{{ route('products') }}" class="d-flex align-items-center gap-10">
-                                Shop all
+                                {{ __('Shop all') }}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"
                                      fill="none">
                                     <path
@@ -337,6 +337,8 @@
                 </div>
                 <div class="tf-grid-layout tf-col-2 lg-col-4">
                     @foreach($this->featuredProducts as $product)
+{{--                        <x-card.product :product="$product"/>--}}
+
                         <div class="card-product visible style-9">
                             <div class="card-product-wrapper">
                                 <a wire:navigate href="{{ route('products.view', $product) }}" class="product-img">
@@ -366,7 +368,7 @@
                                         class="box-icon quick-add tf-btn-loading"
                                         :class="{ 'loading': loading }">
                                         <span class="icon icon-bag"></span>
-                                        <span class="tooltip">Add to cart</span>
+                                        <span class="tooltip">{{ __('Add to cart') }}</span>
                                     </div>
                                 </div>
                             </div>
