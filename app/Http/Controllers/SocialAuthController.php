@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Auth\SocialAuthProviderInterface;
+use App\Interfaces\SocialAuthProviderInterface;
 use Exception;
 
 class SocialAuthController extends Controller

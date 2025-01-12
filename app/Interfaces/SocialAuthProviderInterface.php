@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Interfaces;
 
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 

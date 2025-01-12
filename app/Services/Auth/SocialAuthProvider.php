@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Interfaces\SocialAuthProviderInterface;
 use App\Models\User;
 use Exception;
 use Hash;

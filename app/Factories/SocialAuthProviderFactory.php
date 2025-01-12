@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Factories;
 
+use App\Interfaces\SocialAuthProviderInterface;
+use App\Services\Auth\GoogleAuthProvider;
 use InvalidArgumentException;
 
 class SocialAuthProviderFactory
