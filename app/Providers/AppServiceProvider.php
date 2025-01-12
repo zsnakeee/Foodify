@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\Auth\SocialAuthProviderFactory;
-use App\Services\Auth\SocialAuthProviderInterface;
+use App\Factories\SocialAuthProviderFactory;
+use App\Interfaces\SocialAuthProviderInterface;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
