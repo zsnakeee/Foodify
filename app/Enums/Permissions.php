@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum PermissionsEnum
+enum Permissions
 {
     //
 }
