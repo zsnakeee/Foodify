@@ -3,7 +3,7 @@
         <a href="#" class="dropdown-toggle d-flex align-items-center gap-1"
            id="dropdownMenuButton" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
-            @if(session('currency') === 'USD')
+            @if(config('app.currency') === 'USD')
                 <img src="{{ asset('assets/images/country/us.svg') }}" alt="us" width="16">
                 <span>USD</span>
             @else
@@ -13,7 +13,7 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li>
-                <a @class(['dropdown-item', 'active' => session('currency') === 'USD'])
+                <a @class(['dropdown-item', 'active' => config('app.currency') === 'USD'])
                    x-on:click.prevent="$dispatch('changeCurrency', { currency: 'USD'});">
                     <span class="text">
                         <img src="{{ asset('assets/images/country/us.svg') }}" alt="us">USD $ | United States
@@ -22,7 +22,7 @@
             </li>
 
             <li>
-                <a @class(['dropdown-item', 'active' => session('currency') === 'EGP'])
+                <a @class(['dropdown-item', 'active' => config('app.currency') === 'EGP'])
                    x-on:click.prevent="$dispatch('changeCurrency', { currency: 'EGP'});">
                     <span class="text">
                         <img src="{{ asset('assets/images/country/eg.svg') }}" alt="eg">EGP LE | Egypt
