@@ -8,7 +8,7 @@
 
         <div class="mb_10">
             <button type="submit" class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center">
-                Register
+                {{ __('Register') }}
             </button>
         </div>
 
@@ -21,14 +21,14 @@
                style="background-color: #DB4437; border-color: #DB4437;">
                <span class="d-flex justify-content-center gap-2">
                    <i class="fa-brands fa-google"></i>
-                   <span class="ml-2">Register with Google</span>
+                   <span class="ml-2">{{ __('Register with Google') }}</span>
                </span>
             </a>
         </div>
 
         <div class="text-center">
             <a wire:navigate href="{{ route('login') }}"
-               class="tf-btn btn-line">Already have an account? Log in here<i class="icon icon-arrow1-top-left"></i>
+               class="tf-btn btn-line">{{ __('Already have an account? Log in here') }}<i class="icon icon-arrow1-top-left"></i>
             </a>
         </div>
 
