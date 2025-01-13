@@ -20,8 +20,7 @@ class SuccessPage extends Component
 
     public function render()
     {
-        $order = Order::findOrFail($this->order_id);
-
+        $order = Order::my()->findOrFail($this->order_id);
         return view('livewire.frontend.pages.payment.success-page', compact('order'))
             ->layoutData([
                 'title' => $this->title,

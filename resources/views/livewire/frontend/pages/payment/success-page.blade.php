@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="text-center mt-5">
-                            <a href="{{-- route('invoice', $order->id) --}}"
+                            <a href="{{ route('invoice', $order->id) }}"
                                class="tf-btn mb_20 w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
                                 <span>{{ __('Invoice') }}</span>
                             </a>
