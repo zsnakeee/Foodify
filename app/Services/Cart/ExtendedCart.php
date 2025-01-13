@@ -111,4 +111,34 @@ class ExtendedCart extends Cart
             $item->promoCode = null;
         });
     }
+
+    public function promoCode(): ?string
+    {
+        return $this->content()->first()?->promoCode;
+    }
+
+    public function createOrder($address_id, $gateway)
+    {
+        $user = auth()->user();
+        $address = $user->addresses()->find($address_id);
+        $order = $user->orders()->create([
+            'shipping_address_id' => $address->id,
+            'total' => $this->totalFloat(),
+            'discount' => $this->discountFloat(),
+            'promo_code' => $this->promoCode(),
+            'payment_id' => null,
+            'payment_method' => $gateway,
+        ]);
+
+        $this->products()->each(function ($product) use ($order) {
+            $order->details()->create([
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'quantity' => $product->qty,
+                'price' => $product->price,
+            ]);
+        });
+
+        return $order;
+    }
 }
