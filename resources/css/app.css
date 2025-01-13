@@ -5,6 +5,7 @@
 @import "../fonts/fonts.css";
 @import "../fonts/font-icons.css";
 @import "styles.css";
+@import "animations.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
@@ -13,12 +14,48 @@
     font-family: 'Cairo', sans-serif; /* 'Noto Sans Arabic', sans-serif; */
 }
 
+.rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl h5, .rtl h6 {
+    font-family: 'Cairo', sans-serif; /* 'Noto Sans Arabic', sans-serif; */
+}
+
+.rtl input {
+    font-family: 'Cairo', sans-serif;
+}
+
 .bg-primary {
     background-color: var(--primary) !important;
 }
 
 .bg-danger {
     background-color: var(--red_1) !important;
+}
+
+button:disabled,
+button[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: #f9f9f9;
+    color: #bbb;
+}
+
+.modal-header .btn-close {
+    padding: 0.5rem !important;
+    height: auto;
+    width: auto
+}
+
+.modal-footer {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+}
+
+.rtl .modal-footer {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+.rtl .modal-header .btn-close {
+    margin: 0 auto 0 0;
 }
 
 .card-product.skeleton {
@@ -138,6 +175,40 @@
     }
     100% {
         background-color: #e0e0e0;
+    }
+}
+
+.payment-methods {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px
+}
+
+.payment-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--bs-secondary-bg-subtle);
+    color: var(--bs-secondary);
+    transition: all .3s;
+    width: 220px
+}
+
+.payment-card:hover {
+    border-color: var(--main);
+    color: var(--main)
+}
+
+.payment-card.active {
+    border-color: var(--bs-secondary);
+    background-color: var(--bs-dark-border-subtle);
+    color: var(--main)
+}
+
+@media (max-width: 768px) {
+    .payment-card {
+        width: 100%
     }
 }
 
