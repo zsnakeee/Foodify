@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +28,7 @@ class Order extends Model
 
     protected $casts = [
         'status' => OrderStatus::class,
+        'payment_status' => PaymentStatus::class,
     ];
 
     public function user(): BelongsTo
@@ -48,5 +51,10 @@ class Order extends Model
         return Attribute::make(
             get: fn () => str_pad($this->id, 8, '0', STR_PAD_LEFT),
         );
+    }
+
+    public function scopeMy(Builder $query): Builder
+    {
+        return $query->where('user_id', auth()->id());
     }
 }

@@ -13,7 +13,6 @@ class OrderDetail extends Model
         'name',
         'quantity',
         'price',
-        'total',
     ];
 
     public function order(): BelongsTo

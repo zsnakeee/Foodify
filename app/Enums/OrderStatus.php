@@ -21,7 +21,7 @@ enum OrderStatus: string
     public function getBadgeHtml(): string
     {
         return <<<"HTML"
-            <span class='badge bg-{$this->getBadge()} d-flex gap-1'>
+            <span class='badge bg-{$this->getBadge()} d-flex gap-1' style="width: fit-content;">
                 <i class='fas fa-{$this->getIcon()}'></i> {$this->getName()}
             </span>
             HTML;
