@@ -127,7 +127,7 @@
 
                                 </div>
                                 <button x-data="{loading: false}"
-                                        x-on:click="clicked = true;  if(!termsAccepted) return; loading = true; /*$dispatch('placeOrder', {gateway: gateway});*/ setTimeout(() => loading = false, 1000)"
+                                        x-on:click="clicked = true;  if(!termsAccepted) return; loading = true; $dispatch('placeOrder', {gateway: gateway}); setTimeout(() => loading = false, 1000)"
                                         class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
                                         :disabled="loading"
 

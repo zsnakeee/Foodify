@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Frontend\Forms;
 
+use App\DTO\PaymentDTO;
 use App\Enums\OrderStatus;
-use App\Services\Cart\ExtendedCart;
 use App\Factories\PaymentGatewayFactory;
 use App\Interfaces\PaymentGatewayInterface;
+use App\Services\Cart\ExtendedCart;
 use App\Traits\RegisterUtilities;
-use DB;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -44,25 +46,12 @@ class CheckoutForm extends Component
     public function mount()
     {
         $this->addresses = auth()?->user()?->addresses ?? collect();
-        $this->address_id = $this->addresses->first()?->id;
+        $this->address_id = $this->addresses->where('is_primary', true)->first()?->id;
     }
 
     public function render()
     {
         return view('livewire.frontend.forms.checkout-form');
-    }
-
-    public function updatedAddressId(): void
-    {
-        $address = $this->addresses->find($this->address_id);
-        if ($address) {
-            $this->name = $address->name;
-            $this->phone = $address->phone;
-            $this->city = $address->city;
-            $this->address = $address->address;
-        }
-
-        $this->reset(['name', 'phone', 'city', 'address']);
     }
 
     #[On('placeOrder')]
@@ -86,8 +75,6 @@ class CheckoutForm extends Component
         }
 
         try {
-            //            DB::beginTransaction();
-
             if ($this->gateway == 'cash') {
                 $this->handleCashOrder();
 
@@ -113,19 +100,32 @@ class CheckoutForm extends Component
 
     protected function handleGatewayOrder(): void
     {
-        DB::beginTransaction();
-        $order = $this->cart()->createOrder($this->address_id, $this->gateway);
-        $response = $this->payment()->pay($order->total, $order->id, $order->user->name, $order->user->email, $order->user->phone, $order->shippingAddress->address, $order->shippingAddress->city);
-        DB::commit();
+        try {
+            DB::beginTransaction(); // Start a transaction manually
 
-        if (! $response['success']) {
-            Toaster::error($response['message']);
+            $order = $this->cart()->createOrder($this->address_id, $this->gateway);
+            $response = $this->payment()->pay(new PaymentDTO(
+                $order->total,
+                $order->id,
+                $order->user->name,
+                $order->user->email,
+                $order->user->phone,
+                $order->shippingAddress->address,
+                $order->shippingAddress->city
+            ));
 
-            return;
+            if (! $response['success']) {
+                throw new Exception($response['message']);
+            }
+
+            $order->update(['payment_id' => $response['payment_id']]);
+            DB::commit();
+
+            redirect()->away($response['url']);
+        } catch (\Throwable $e) {
+            DB::rollBack(); // Rollback the transaction on any error
+            Toaster::error($e->getMessage());
         }
-
-        $order->update(['payment_id' => $response['payment_id']]);
-        redirect()->away($response['url']);
     }
 
     protected function createAddress($user): void
@@ -140,6 +140,8 @@ class CheckoutForm extends Component
 
         $this->addresses->push($address);
         $this->address_id = $address->id;
+
+        $this->reset(['name', 'phone', 'city', 'address', 'note']);
     }
 
     protected function cart(): ExtendedCart

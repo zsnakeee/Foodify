@@ -10,9 +10,12 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <strong>{{ $address->address }}, {{ $address->city }}</strong>
+                                @if($address->is_primary)
+                                    <span class="me-3 badge bg-dark">{{ __('Primary') }}</span>
+                                @endif
                                 <p>{{ $address->phone }}</p>
                             </div>
-                            {{ __('Default') }}
+
                             <div>
                                 <button class="btn btn-sm text-secondary btn-sm">
                                     <i class="fa fa-trash"></i>
@@ -40,7 +43,6 @@
 
     <!-- New Address Form (Shown Only if "Add a New Address" is Selected) -->
     @if(!$address_id)
-
         <fieldset class="box fieldset">
             <label for="name">{{ __('Name') }}</label>
             <input type="text" id="name" wire:model="name"
