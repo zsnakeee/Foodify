@@ -17,10 +17,10 @@
                         <table class="tf-table-page-cart">
                             <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th>{{ __('Product') }}</th>
+                                <th>{{ __('Price') }}</th>
+                                <th>{{ __('Quantity') }}</th>
+                                <th>{{ __('Total') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,11 +67,23 @@
                                 </tr>
                             </template>
 
+                            <template x-if="!Object.values(products ?? []).length">
+                                <tr>
+                                    <td colspan="4">
+                                        <x-empty-state :message="__('There are no products in your cart.')">
+                                            <a href="{{ route('home') }}"
+                                               class="mt-4 tf-btn radius-3 bg-body-secondary btn-icon animate-hover-btn justify-content-center">{{ __('Return to shop') }}</a>
+                                        </x-empty-state>
+                                    </td>
+                                </tr>
+                            </template>
                             </tbody>
                         </table>
-                        <div class="tf-page-cart-note">
-                            <label for="cart-note">Add Order Note</label>
-                            <textarea name="note" id="cart-note" placeholder="How can we help you?"></textarea>
+
+                        <div class="tf-page-cart-note" x-show="products.length">
+                            <label for="cart-note">{{ __('Add Order Note') }}</label>
+                            <textarea name="note" id="cart-note"
+                                      placeholder="{{ __('How can we help you?') }}"></textarea>
                         </div>
                     </form>
                 </div>
@@ -107,6 +119,7 @@
                                         <fieldset class="field">
                                             <label class="label">{{ __('Code') }}</label>
                                             <input type="text" wire:model="promoCode"
+                                                   placeholder="{{ __('Enter your promo code') }}"
                                                    class="form-control @error('promoCode') is-invalid @enderror">
                                             @error('promoCode') <span
                                                 class="invalid-feedback">{{ $message }}</span> @enderror
@@ -125,11 +138,6 @@
                                                 <span>{{ __('Apply') }}</span>
                                             </button>
                                         @endif
-                                        {{--                                        <button--}}
-                                        {{--                                            wire:click="applyPromoCode"--}}
-                                        {{--                                            class="tf-btn btn-fill animate-hover-btn radius-3 justify-content-center">--}}
-                                        {{--                                            <span>Apply</span>--}}
-                                        {{--                                        </button>--}}
                                     </div>
                                 </div>
                             </div>
@@ -153,16 +161,8 @@
                             </div>
 
 
-                            {{--                            <p class="tf-cart-tax">{{ __('Taxes and shipping calculated at checkout') }}</p>--}}
-                            <div class="cart-checkbox">
-                                <input type="checkbox" class="tf-check" id="check-agree">
-                                <label for="check-agree" class="fw-4">
-                                    {{ __('I agree with the') }} <a
-                                        href="terms-conditions.html">{{ __('terms and conditions') }}</a>
-                                </label>
-                            </div>
                             <div class="cart-checkout-btn">
-                                <a href="checkout.html"
+                                <a href="{{ route('checkout') }}"
                                    class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
                                     <span>{{ __('Check out') }}</span>
                                 </a>
@@ -234,24 +234,6 @@
                                                   d="m23.395 4.955-2.916 6.566h2l.55-1.315h2.98l.55 1.315h2.05l-2.904-6.566h-2.31Zm.25 3.777.875-2.09.873 2.09h-1.748Z"></path>
                                             <path fill="#006FCF"
                                                   d="M28.581 11.52V4.953l2.811.01L32.84 9l1.456-4.046H37v6.565l-1.74.016v-4.51l-1.644 4.494h-1.59L30.35 7.01v4.51h-1.768Z"></path>
-                                        </svg>
-                                    </div>
-                                    <div class="payment-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24"
-                                             width="38" height="24" aria-labelledby="pi-amazon"><title id="pi-amazon">
-                                                Amazon</title>
-                                            <path
-                                                d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"
-                                                fill="#000" fill-rule="nonzero" opacity=".07"></path>
-                                            <path
-                                                d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"
-                                                fill="#FFF" fill-rule="nonzero"></path>
-                                            <path
-                                                d="M25.26 16.23c-1.697 1.48-4.157 2.27-6.275 2.27-2.97 0-5.644-1.3-7.666-3.463-.16-.17-.018-.402.173-.27 2.183 1.504 4.882 2.408 7.67 2.408 1.88 0 3.95-.46 5.85-1.416.288-.145.53.222.248.47v.001zm.706-.957c-.216-.328-1.434-.155-1.98-.078-.167.024-.193-.148-.043-.27.97-.81 2.562-.576 2.748-.305.187.272-.047 2.16-.96 3.063-.14.138-.272.064-.21-.12.205-.604.664-1.96.446-2.29h-.001z"
-                                                fill="#F90" fill-rule="nonzero"></path>
-                                            <path
-                                                d="M21.814 15.291c-.574-.498-.676-.73-.993-1.205-.947 1.012-1.618 1.315-2.85 1.315-1.453 0-2.587-.938-2.587-2.818 0-1.467.762-2.467 1.844-2.955.94-.433 2.25-.51 3.25-.628v-.235c0-.43.033-.94-.208-1.31-.212-.333-.616-.47-.97-.47-.66 0-1.25.353-1.392 1.085-.03.163-.144.323-.3.33l-1.677-.187c-.14-.033-.296-.153-.257-.38.386-2.125 2.223-2.766 3.867-2.766.84 0 1.94.234 2.604.9.842.82.762 1.918.762 3.11v2.818c0 .847.335 1.22.65 1.676.113.164.138.36-.003.482-.353.308-.98.88-1.326 1.2a.367.367 0 0 1-.414.038zm-1.659-2.533c.34-.626.323-1.214.323-1.918v-.392c-1.25 0-2.57.28-2.57 1.82 0 .782.386 1.31 1.05 1.31.487 0 .922-.312 1.197-.82z"
-                                                fill="#221F1F"></path>
                                         </svg>
                                     </div>
                                 </div>

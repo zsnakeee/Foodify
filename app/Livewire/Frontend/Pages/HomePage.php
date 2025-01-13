@@ -6,16 +6,17 @@ use App\Models\Category;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('layouts.app')]
-#[Title('Home Page')]
 class HomePage extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.pages.home-page');
+        return view('livewire.frontend.pages.home-page')
+            ->layoutData([
+                'title' => __('Home'),
+            ]);
     }
 
     #[Computed]

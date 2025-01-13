@@ -4787,6 +4787,9 @@ header.header-bg {
 }
 
 .tf-field .tf-field-label {
+    inset-inline-start: 10px;
+    width: fit-content;
+    pointer-events: none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -4831,12 +4834,12 @@ header.header-bg {
     align-items: center;
 }
 
-.tf-check.checked {
+.tf-check.checked, .tf-check:checked {
     border-color: var(--primary);
     background-color: var(--primary);
 }
 
-.tf-check.checked::before {
+.tf-check.checked::before, .tf-check:checked::before {
     opacity: 1;
     transform: scale(1);
 }
@@ -22507,6 +22510,7 @@ blockquote .text {
     align-items: center;
     justify-content: center;
 }
+
 .rtl .top-bar-language .dropdown-menu {
     inset: 0px auto auto 0px !important;
 }

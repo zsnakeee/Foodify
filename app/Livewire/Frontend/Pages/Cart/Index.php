@@ -29,7 +29,7 @@ class Index extends Component
     public function __construct()
     {
         $this->cart = app(ExtendedCart::class)->shopping();
-        $this->promoCode = $this->cart->content()->first()->promoCode;
+        $this->promoCode = $this->cart->content()?->first()?->promoCode ?? '';
     }
 
     public function render()

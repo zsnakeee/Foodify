@@ -39,11 +39,11 @@
                                     <div class="sub-menu submenu-default">
                                         <ul class="menu-list">
                                             <li class="d-flex">
-                                                <a href=""
+                                                <a wire:navigate href="{{ route('profile') }}"
                                                    class="menu-link-text link text_black-2">{{ __('Profile') }}</a>
                                             </li>
                                             <li class="d-flex">
-                                                <a href=""
+                                                <a wire:navigate href="{{ route('orders') }}"
                                                    class="menu-link-text link text_black-2">{{ __('Orders') }}</a>
                                             </li>
                                             <li class="d-flex">
