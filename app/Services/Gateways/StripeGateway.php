@@ -2,6 +2,7 @@
 
 namespace App\Services\Gateways;
 
+use App\DTO\PaymentDTO;
 use App\Interfaces\PaymentGatewayInterface;
 use App\Models\Order;
 use Exception;
@@ -30,20 +31,18 @@ class StripeGateway extends BasePaymentGateway implements PaymentGatewayInterfac
         ];
     }
 
-    public function pay(
-        $amount,
-        $order_id = null,
-        $name = null,
-        $email = null,
-        $phone = null,
-        $address = null,
-        $city = null,
-        $postal_code = null,
-    ): array {
-
+    public function pay(PaymentDTO $paymentDTO): array
+    {
         try {
-            $data = $this->formatData($order_id);
+            $data = $this->formatData($paymentDTO->order_id);
             $response = $this->buildRequest('/v1/checkout/sessions', data: $data, type: 'form_params')->getData(true);
+            if (isset($response['data']['error'])) {
+                return [
+                    'success' => false,
+                    'message' => $response['data']['error']['type'],
+                    'data' => $response,
+                ];
+            }
 
             return [
                 'success' => true,

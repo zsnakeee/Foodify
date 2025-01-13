@@ -2,6 +2,7 @@
 
 namespace App\Services\Gateways;
 
+use App\DTO\PaymentDTO;
 use App\Interfaces\PaymentGatewayInterface;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,21 +28,20 @@ class PaypalGateway extends BasePaymentGateway implements PaymentGatewayInterfac
         ];
     }
 
-    public function pay(
-        $amount,
-        $order_id = null,
-        $name = null,
-        $email = null,
-        $phone = null,
-        $address = null,
-        $city = null,
-        $postal_code = null,
-    ): array {
-
-        $order_id = $order_id ?? $this->generateOrderId();
-        $data = $this->formatData($amount, $order_id);
+    public function pay(PaymentDTO $paymentDTO): array
+    {
+        $order_id = $paymentDTO->order_id ?? $this->generateOrderId();
+        $data = $this->formatData($paymentDTO->amount, $order_id);
         try {
             $response = $this->buildRequest('/v2/checkout/orders', 'POST', $data)->getData(true);
+
+            if (isset($response['data']['error'])) {
+                return [
+                    'success' => false,
+                    'message' => $response['data']['error'],
+                    'data' => $response,
+                ];
+            }
 
             return [
                 'success' => true,
