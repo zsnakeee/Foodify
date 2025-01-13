@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Frontend\Forms;
 
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class LoginForm extends Component
 {
-    #[Rule(['required', 'email', 'max:255'])]
+    #[Rule(['required', 'email'])]
     public string $email = '';
 
     #[Rule(['required', 'string'])]
@@ -26,15 +26,24 @@ class LoginForm extends Component
     {
         $this->validate();
         if (auth()->attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            return redirect()->route('frontend.home');
+            $this->redirectRoute('login', navigate: true);
         }
-        $this->addError('email', 'These credentials do not match our records.');
+
+        $this->addError('email', __('auth.failed'));
     }
 
-    public function logout(): RedirectResponse
+    public function recover()
     {
-        auth()?->logout();
+        $this->validate([
+            'email' => 'required|email',
+        ]);
 
-        return redirect()->route('frontend.home');
+        $status = Password::sendResetLink(
+            $this->only('email')
+        );
+
+        $status === Password::RESET_LINK_SENT
+            ? $this->success(__('Password reset link sent!'))
+            : $this->addError('email', __($status));
     }
 }
