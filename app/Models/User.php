@@ -6,7 +6,6 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -63,14 +62,14 @@ class User extends Authenticatable
         return $value ?? 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?d=mp';
     }
 
-    public function wishlist(): HasOne
+    public function orders(): HasMany
     {
-        return $this->hasOne(Wishlist::class);
+        return $this->hasMany(Order::class);
     }
 
-    public function recentViews(): HasMany
+    public function addresses(): HasMany
     {
-        return $this->hasMany(RecentView::class);
+        return $this->hasMany(Address::class);
     }
 
     public function redeemPromoCode(PromoCode $promoCode): void
