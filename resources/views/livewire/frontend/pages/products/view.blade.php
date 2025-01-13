@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="tf-product-info-liveview">
                                     <div class="liveview-count">20</div>
-                                    <p class="fw-6">People are viewing this right now</p>
+                                    <p class="fw-6">{{ __('People are viewing this right now') }}</p>
                                 </div>
 
                                 <div class="tf-product-info-countdown">
@@ -82,9 +82,9 @@
 
                                 <div style="margin-bottom: 30px"
                                      x-data="cartHandler({{ $product->id }}, {{ $product->price }})">
-{{--                                     x-on:cart-updated.window="cartUpdated">--}}
+                                    {{--                                     x-on:cart-updated.window="cartUpdated">--}}
                                     <div class="tf-product-info-quantity" style="margin-bottom: 30px">
-                                        <div class="quantity-title fw-6">Quantity</div>
+                                        <div class="quantity-title fw-6">{{ __('Quantity') }}</div>
                                         <div class="wg-quantity">
                                             <span class="btn-quantity btn-decrease" x-on:click="decrement">-</span>
                                             <input type="text" class="quantity-product" name="number" value="1"
@@ -113,7 +113,9 @@
                                             </div>
 
                                             <div class="w-100">
-                                                <a href="#" class="btns-full">{{ __('Buy Now') }}</a>
+
+                                                <button wire:click="checkoutSingle" type="button"
+                                                        class="btns-full">{{ __('Buy Now') }}</button>
                                             </div>
                                         </form>
                                     </div>
@@ -146,7 +148,7 @@
                                 <div class="tf-product-info-trust-seal">
                                     <div class="tf-product-trust-mess">
                                         <i class="icon-safe"></i>
-                                        <p class="fw-6">Guarantee Safe <br> Checkout</p>
+                                        <p class="fw-6">{{ __('Guarantee Safe') }} <br> {{ __('Checkout') }}</p>
                                     </div>
                                     <div class="tf-payment">
                                         <img src="{{ asset('assets/images/payments/visa.png') }}" alt="">

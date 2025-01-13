@@ -37,4 +37,11 @@ class View extends Component
                 ],
             ]);
     }
+
+    public function checkoutSingle(ExtendedCart $cartService): void
+    {
+        $cartService->instance('single')->destroy();
+        $cartService->instance('single')->add($this->product, 1);
+        $this->redirectRoute('checkout', ['single' => true], navigate: true);
+    }
 }
