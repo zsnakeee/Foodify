@@ -8,6 +8,6 @@ enum DiscountType: string
 {
     use EnumToArray;
 
-    case Fixed = 'fixed';
-    case Percentage = 'percentage';
+    case FIXED = 'fixed';
+    case PERCENTAGE = 'percentage';
 }
