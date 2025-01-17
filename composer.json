@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "eightynine/filament-advanced-widgets": "^3.0",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
@@ -14,10 +15,13 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "masmerise/livewire-toaster": "^2.6",
+        "outerweb/filament-translatable-fields": "^2.0",
         "propaganistas/laravel-phone": "^5.3",
         "reliqarts/laravel-auto-translator": "^1.0",
         "spatie/laravel-permission": "^6.10",
+        "spatie/laravel-sluggable": "^3.7",
         "spatie/laravel-translatable": "^6.9",
+        "zsnakeee/lang-pilot": "^1.0",
         "zsnakeee/shoppingcart": "^1.0"
     },
     "require-dev": {
