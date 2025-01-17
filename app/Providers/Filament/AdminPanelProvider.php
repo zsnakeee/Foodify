@@ -15,6 +15,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -25,6 +26,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -38,7 +40,6 @@ class AdminPanelProvider extends PanelProvider
             $table
                 ->recordAction(null)
                 ->recordUrl(null);
-
         }, isImportant: true);
 
         return $panel
@@ -73,6 +74,14 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->maxContentWidth(MaxWidth::Full)
+            ->plugins([
+                FilamentTranslatableFieldsPlugin::make()
+                    ->supportedLocales([
+                        'en' => 'English',
+                        'ar' => 'Arabic',
+                    ]),
             ])
             ->font('Inter', provider: GoogleFontProvider::class)
             ->font('Cairo', provider: GoogleFontProvider::class)
