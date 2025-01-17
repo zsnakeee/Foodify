@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
-            $table->enum('type', DiscountType::values())->default(DiscountType::Percentage);
+            $table->enum('type', DiscountType::values())->default(DiscountType::PERCENTAGE);
             $table->decimal('value', 10)->default(0);
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
