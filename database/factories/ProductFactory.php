@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'slug' => $this->faker->slug,
             'image' => "products/food{$this->faker->numberBetween(1, 7)}.jpg",
             'gallery' => [$this->faker->imageUrl(), $this->faker->imageUrl()],
-            'quantity' => $this->faker->randomNumber(),
+            'quantity' => $this->faker->randomNumber(2),
             'price' => $this->faker->randomFloat(0, 20, 250),
             'is_active' => true,
             'is_new' => $this->faker->boolean,
