@@ -29,6 +29,7 @@ enum PaymentStatus: string
     {
         return match ($this->value) {
             self::PAID->value => 'success',
+            self::UNPAID->value => 'warning',
             default => 'secondary',
         };
     }
