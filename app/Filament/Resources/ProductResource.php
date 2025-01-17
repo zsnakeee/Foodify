@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\ProductExporter;
+use App\Filament\Imports\ProductImporter;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use App\Traits\HasLocalizedLabel;
@@ -158,11 +160,23 @@ class ProductResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\ImportAction::make()
+                    ->importer(ProductImporter::class)
+                    ->label(__('Import'))
+                    ->color('primary'),
+                Tables\Actions\ExportAction::make()
+                    ->exporter(ProductExporter::class)
+                    ->label(__('Export'))
+                    ->icon('heroicon-s-arrow-down-tray')
+                    ->color('primary'),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\ExportAction::make(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
