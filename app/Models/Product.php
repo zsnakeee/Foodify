@@ -67,6 +67,11 @@ class Product extends Model
         return $this->hasMany(Discount::class);
     }
 
+    public function dailyDeals(): HasMany
+    {
+        return $this->belongsToMany(DailyDeal::class, 'daily_deal_products')->withTimestamps();
+    }
+
     public function getFormattedPriceAttribute(): string
     {
         return format_price($this->price);
@@ -101,13 +106,4 @@ class Product extends Model
 
         return json_encode($attributes);
     }
-
-    //    public function toArray(): array
-    //    {
-    //        $array = parent::toArray();
-    //        foreach ($this->translatable as $field) {
-    //            $array[$field] = $this->getTranslation($field, app()->getLocale());
-    //        }
-    //        return $array;
-    //    }
 }
