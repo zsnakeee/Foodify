@@ -27,7 +27,7 @@ Route::get('/checkout/{single?}', Cart\Checkout::class)->name('checkout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/orders', Orders\Index::class)->name('orders');
-    Route::get('/order/{order}', Orders\View::class)->name('orders.view');
+    Route::get('/order/{order}/view', Orders\View::class)->name('orders.view');
     Route::get('/order/completed/{order_id}', SuccessPage::class)->name('payment.success');
     Route::get('/order/cancel', FailurePage::class)->name('payment.failure');
     Route::get('/invoice/{order_id}', InvoicePage::class)->name('invoice');
