@@ -38,10 +38,12 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('avatar'),
                 Forms\Components\TextInput::make('phone')
                     ->tel(),
-                Forms\Components\TextInput::make('role_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('oauth_provider'),
-                Forms\Components\TextInput::make('oauth_id'),
+                Forms\Components\Select::make('roles')
+                    ->hiddenOn('create')
+                    ->disabled(fn (): bool => auth()->user()->cant('role.assign'))
+                    ->multiple()
+                    ->relationship('roles', 'name')
+                    ->preload(),
             ]);
     }
 
@@ -80,16 +82,16 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-               //
-           ])
+                //
+            ])
             ->actions([
-               Tables\Actions\EditAction::make(),
-           ])
+                Tables\Actions\EditAction::make(),
+            ])
             ->bulkActions([
-               Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-               ]),
-           ]);
+                ]),
+            ]);
 
     }
 
