@@ -23,6 +23,11 @@ trait HasLocalizedLabel
         return __(static::getPluralLabel());
     }
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __(static::$navigationGroup);
+    }
+
     public static function getUpperLabel(): string
     {
         return Str::ucfirst(get_model_label(static::$model));
