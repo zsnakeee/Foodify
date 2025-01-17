@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,9 +58,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function getAvatarAttribute($value): string
+    protected function avatar(): Attribute
     {
-        return $value ?? 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?d=mp';
+        return Attribute::make(
+            get: fn ($value) => $value ?? 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?d=mp',
+        );
     }
 
     public function orders(): HasMany
