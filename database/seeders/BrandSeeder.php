@@ -46,7 +46,7 @@ class BrandSeeder extends Seeder
                 'name' => $name,
                 'slug' => Str::slug($name),
                 'description' => fake()->sentence,
-                'image' => "brand/brand-$index.png",
+                'image' => "seeds/brand/brand-$index.png",
             ]);
         }
     }
