@@ -20,9 +20,9 @@ class SetLocaleMiddleware
             app()->setLocale(session('locale')) :
             app()->setLocale(config('app.locale'));
 
-        session()->has('currency') ?
-            config(['app.currency' => session('currency')]) :
-            config(['app.currency' => config('app.currency')]);
+//        session()->has('currency') ?
+//            config(['app.currency' => session('currency')]) :
+//            config(['app.currency' => config('app.currency')]);
 
         Number::useLocale(app()->getLocale());
         return $next($request);

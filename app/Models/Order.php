@@ -57,4 +57,11 @@ class Order extends Model
     {
         return $query->where('user_id', auth()->id());
     }
+
+    public function decrementStock(): void
+    {
+        $this->details->each(function (OrderDetail $detail) {
+            $detail->product->decrement('quantity', $detail->quantity);
+        });
+    }
 }
