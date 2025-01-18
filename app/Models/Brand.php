@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasImage;
 use Database\Factories\BrandFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,11 +14,21 @@ class Brand extends Model
     /** @use HasFactory<BrandFactory> */
     use HasFactory;
 
+    use HasImage;
     use HasTranslations;
 
-    protected $fillable = ['name', 'slug', 'description', 'image'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'image',
+    ];
 
-    public array $translatable = ['name', 'slug', 'description'];
+    public array $translatable = [
+        'name',
+        'slug',
+        'description',
+    ];
 
     public function products(): HasMany
     {
