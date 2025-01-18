@@ -63,7 +63,10 @@
                                     {{--                                    <div class="badges-on-sale"><span>20</span>% OFF</div>--}}
                                 </div>
                                 <div class="tf-product-info-liveview">
-                                    <div class="liveview-count">20</div>
+                                    <livewire:frontend.pages.components.view-counter
+                                        counter-key="Product.View.{{ $product->id }}"/>
+
+
                                     <p class="fw-6">{{ __('People are viewing this right now') }}</p>
                                 </div>
 

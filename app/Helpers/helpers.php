@@ -42,3 +42,21 @@ if (! function_exists('ui_avatar')) {
         return 'https://ui-avatars.com/api/?name='.urlencode($name).'&color='.$color.'&background='.$background;
     }
 }
+
+if (! function_exists('cache_push')) {
+    function cache_push($key, $value, $minutes = 60): void
+    {
+        $values = Cache::get($key, []);
+        $values[] = $value;
+        Cache::put($key, $values, $minutes);
+    }
+
+    function cache_push_unique($key, $value, $minutes = 60): void
+    {
+        $values = Cache::get($key, []);
+        if (! in_array($value, $values)) {
+            $values[] = $value;
+        }
+        Cache::put($key, $values, $minutes);
+    }
+}

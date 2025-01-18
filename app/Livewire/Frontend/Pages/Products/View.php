@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Frontend\Pages\Products;
 
+use App\Events\UserViewingProduct;
 use App\Models\Product;
 use App\Services\Cart\ExtendedCart;
+use Cache;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -26,7 +28,6 @@ class View extends Component
 
     public function render()
     {
-//        broadcast(new \App\Events\ProductViewed($this->product));
         return view('livewire.frontend.pages.products.view')
             ->layoutData([
                 'title' => $this->product->name,
