@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\OrderStatus;
-use App\Enums\PaymentStatus;
+use App\Factories\PaymentGatewayFactory;
 use App\Models\Order;
 use App\Services\Cart\ExtendedCart;
-use App\Factories\PaymentGatewayFactory;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -23,7 +21,7 @@ class PaymentController extends Controller
 
             if ($result['success']) {
                 $order = Order::where('payment_id', $result['payment_id'])->first();
-                $order->update(['payment_status' => PaymentStatus::PAID, 'status' => OrderStatus::PROCESSING]);
+                $order->paid();
 
                 return redirect()->route('payment.success', ['order_id' => $order->id]);
             } else {

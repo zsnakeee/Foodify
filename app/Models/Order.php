@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
+use App\Notifications\OrderPaid;
+use App\Observers\OrderObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+#[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     protected $fillable = [
@@ -61,7 +65,19 @@ class Order extends Model
     public function decrementStock(): void
     {
         $this->details->each(function (OrderDetail $detail) {
-            $detail->product->decrement('quantity', $detail->quantity);
+            $detail->product->lockForUpdate()->decrement('quantity', $detail->quantity);
+
+            //event update stock
+        });
+    }
+
+    public function paid($notify = true): void
+    {
+        $this->update(['payment_status' => PaymentStatus::PAID, 'status' => OrderStatus::PROCESSING]);
+        $this->decrementStock();
+
+        dispatch(function () use ($notify) {
+            $notify && $this->user->notify(new OrderPaid($this));
         });
     }
 }

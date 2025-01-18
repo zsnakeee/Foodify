@@ -22,10 +22,7 @@ class OrderObserver
     public function updated(Order $order): void
     {
         if ($order->isDirty('payment_status') && $order->payment_status === PaymentStatus::PAID) {
-            dispatch(function () use ($order) {
-                $order->decrementStock();
-                $order->user->notify(new OrderPaid($order));
-            });
+
         }
     }
 
