@@ -47,8 +47,8 @@ class CategorySeeder extends Seeder
                     'ar' => $names_ar[$index],
                 ],
                 'slug' => [
-                    'en' => Str::slug($name),
-                    'ar' => Str::slug($names_ar[$index]),
+                    'en' => slug($name),
+                    'ar' => slug($names_ar[$index]),
                 ],
                 'description' => [
                     'en' => fake()->sentence,

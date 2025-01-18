@@ -20,7 +20,7 @@ class View extends Component
 
     public function mount($product, ExtendedCart $cartService)
     {
-        $this->product = Product::whereJsonContainsLocale('slug', app()->getLocale(), $product)->firstOrFail();
+        $this->product = Product::whereJsonContains('slug', $product)->firstOrFail();
         $this->holdersCount = $cartService->countItems();
         $this->recentProducts = Product::whereIn('id', $cartService->recentViews()->content()->pluck('id')->all() ?? [])->where('id', '!=', $this->product->id)->get();
         $cartService->recentViews()->add($this->product);

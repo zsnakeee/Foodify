@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', SetLocaleMiddleware::class);
+        $middleware->trustProxies(at: '*');
+        $middleware->validateCsrfTokens(except: ['livewire/*']);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

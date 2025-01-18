@@ -75,8 +75,8 @@ class ProductSeeder extends Seeder
                         'ar' => 'هذا الوصف باللغة العربية للمنتج',
                     ],
                     'slug' => [
-                        'en' => Str::slug($name),
-                        'ar' => Str::slug($names_ar[$category->id][$index]),
+                        'en' => slug($name),
+                        'ar' => slug($names_ar[$category->id][$index]),
                     ],
                     'image' => $image_path,
                     'gallery' => [$image_path, $image_path],

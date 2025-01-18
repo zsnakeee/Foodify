@@ -14,7 +14,7 @@ class View extends Component
 
     public function mount($category): void
     {
-        $this->category = Category::whereJsonContainsLocale('slug', app()->getLocale(), $category)->firstOrFail();
+        $this->category = Category::whereJsonContains('slug', $category)->firstOrFail();
     }
 
     public function render()
