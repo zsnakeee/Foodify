@@ -26,6 +26,7 @@ class View extends Component
 
     public function render()
     {
+//        broadcast(new \App\Events\ProductViewed($this->product));
         return view('livewire.frontend.pages.products.view')
             ->layoutData([
                 'title' => $this->product->name,
