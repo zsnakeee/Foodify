@@ -14,6 +14,7 @@ use App\Livewire\Frontend\Pages\Products;
 use App\Livewire\Frontend\Pages\ProfilePage;
 use App\Livewire\Frontend\Pages\RegisterPage;
 use App\Livewire\Frontend\Pages\WishlistPage;
+use App\Services\Cart\ExtendedCart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class)->name('home');
@@ -48,3 +49,9 @@ Route::get('/logout', function () {
 
     return redirect()->route('home');
 })->name('logout')->middleware('auth');
+
+Route::get('/get', function (){
+    $cart = app(ExtendedCart::class)->shopping();
+    //$cart->destroy();
+    return app(ExtendedCart::class)->shopping()->all();
+});

@@ -23,6 +23,6 @@
            class="title link">
             {{ $product->name }}
         </a>
-        <span class="price">{{ $product->formatted_price }}</span>
+        <span class="price">{{ $product->priceFormatted }}</span>
     </div>
 </div>

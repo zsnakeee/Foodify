@@ -61,6 +61,7 @@
 
         <fieldset class="box fieldset">
             <label for="phone">{{ __('Phone Number') }}</label>
+            <span class="ms-2 text-muted">{{ __('(e.g. +201234567890)') }}</span>
             <input type="tel" id="phone" wire:model="phone"
                    required @class(['form-control is-invalid' => $errors->has('phone')])>
             @error('phone') <span class="text-danger">{{ $message }}</span> @enderror

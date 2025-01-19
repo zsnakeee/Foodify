@@ -94,7 +94,6 @@ class CheckoutForm extends Component
     {
         $order = $this->cart()->createOrder($this->address_id, $this->gateway);
         $order->update(['status' => OrderStatus::PROCESSING]);
-        $this->cart()->destroy();
         $this->redirect(route('payment.success', $order->id), true);
     }
 
@@ -106,6 +105,7 @@ class CheckoutForm extends Component
             $order = $this->cart()->createOrder($this->address_id, $this->gateway);
             $response = $this->payment()->pay(new PaymentDTO(
                 $order->total,
+                $order->currency,
                 $order->id,
                 $order->user->name,
                 $order->user->email,
@@ -146,7 +146,7 @@ class CheckoutForm extends Component
 
     protected function cart(): ExtendedCart
     {
-        return $this->single ? app(ExtendedCart::class)->instance('single') : app(ExtendedCart::class)->shopping();
+        return app(ExtendedCart::class)->shopping();
     }
 
     protected function payment(): PaymentGatewayInterface

@@ -1,8 +1,18 @@
 <?php
 
+if (! function_exists('exchange')) {
+    function exchange($amount, $to = null, $from = null): float
+    {
+        $to = $to ?? config('app.currency');
+        return \App\Models\ExchangeRate::convert($amount, $to, $from);
+    }
+}
+
 if (! function_exists('format_price')) {
     function format_price($price): string
     {
+        $price = exchange($price, config('app.currency'));
+
         return Number::currency($price, config('app.currency'), app()->getLocale());
     }
 }

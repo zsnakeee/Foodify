@@ -31,14 +31,14 @@ class PaypalGateway extends BasePaymentGateway implements PaymentGatewayInterfac
     public function pay(PaymentDTO $paymentDTO): array
     {
         $order_id = $paymentDTO->order_id ?? $this->generateOrderId();
-        $data = $this->formatData($paymentDTO->amount, $order_id);
+        $data = $this->formatData($paymentDTO->amount, $paymentDTO->currency, $order_id);
         try {
             $response = $this->buildRequest('/v2/checkout/orders', 'POST', $data)->getData(true);
 
-            if (isset($response['data']['error'])) {
+            if (isset($response['data']['error']) || $response['status'] != 200) {
                 return [
                     'success' => false,
-                    'message' => $response['data']['error'],
+                    'message' => $response['data']['error'] ?? $response['data']['message'] ?? __('An error occurred while executing the operation'),
                     'data' => $response,
                 ];
             }
@@ -79,8 +79,12 @@ class PaypalGateway extends BasePaymentGateway implements PaymentGatewayInterfac
         }
     }
 
-    public function formatData($amount, $order_id): array
+    public function formatData($amount, $currency, $order_id): array
     {
+        if ($currency !== $this->currency) {
+            $amount = exchange($amount, to: $this->currency, from: $currency);
+        }
+
         return [
             'intent' => 'CAPTURE',
             'purchase_units' => [

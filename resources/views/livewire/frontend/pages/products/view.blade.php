@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="tf-product-info-price">
-                                    <div class="price-on-sale">{{ $product->formatted_price }}</div>
+                                    <div class="price-on-sale">{{ $product->priceFormatted }}</div>
                                     {{--                                    <div class="compare-at-price">$30.00</div>--}}
                                     {{--                                    <div class="badges-on-sale"><span>20</span>% OFF</div>--}}
                                 </div>
@@ -84,7 +84,7 @@
                                 </div>
 
                                 <div style="margin-bottom: 30px"
-                                     x-data="cartHandler({{ $product->id }}, {{ $product->price }})">
+                                     x-data="cartHandler({{ $product->id }}, {{ $product->priceConverted }})">
                                     {{--                                     x-on:cart-updated.window="cartUpdated">--}}
                                     <div class="tf-product-info-quantity" style="margin-bottom: 30px">
                                         <div class="quantity-title fw-6">{{ __('Quantity') }}</div>
@@ -115,11 +115,11 @@
                                                       x-text="isWished ? '{{ __('Remove from Wishlist') }}' : '{{ __('Add to Wishlist') }}'"></span>
                                             </div>
 
-                                            <div class="w-100">
+                                            {{--                                            <div class="w-100">--}}
 
-                                                <button wire:click="checkoutSingle" type="button"
-                                                        class="btns-full">{{ __('Buy Now') }}</button>
-                                            </div>
+                                            {{--                                                <button wire:click="checkoutSingle" type="button"--}}
+                                            {{--                                                        class="btns-full">{{ __('Buy Now') }}</button>--}}
+                                            {{--                                            </div>--}}
                                         </form>
                                     </div>
                                 </div>

@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Notifications\OrderPaid;
 use App\Observers\OrderObserver;
+use App\Services\Cart\ExtendedCart;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -21,6 +22,7 @@ class Order extends Model
         'user_id',
         'shipping_address_id',
         'total',
+        'currency',
         'discount',
         'promo_code',
         'status',
@@ -67,7 +69,7 @@ class Order extends Model
         $this->details->each(function (OrderDetail $detail) {
             $detail->product->lockForUpdate()->decrement('quantity', $detail->quantity);
 
-            //event update stock
+            // event update stock
         });
     }
 

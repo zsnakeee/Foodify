@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="box-content">
                                     <p class="title link text_black-2">{{ $product->name }}</p>
-                                    <div class="price">{{ $product->formatted_price }}</div>
+                                    <div class="price">{{ $product->priceFormatted }}</div>
                                 </div>
                             </a>
                         </li>

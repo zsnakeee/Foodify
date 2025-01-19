@@ -7,6 +7,7 @@ use App\Traits\HasImage;
 use App\Traits\HasTranslations;
 use App\Traits\ProductScopes;
 use Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -72,9 +73,18 @@ class Product extends Model
         return $this->belongsToMany(DailyDeal::class, 'daily_deal_products')->withTimestamps();
     }
 
-    public function getFormattedPriceAttribute(): string
+    protected function priceConverted(): Attribute
     {
-        return format_price($this->price);
+        return Attribute::make(
+            get: fn ($value, array $attributes) => exchange($attributes['price'], config('app.currency')),
+        );
+    }
+
+    protected function priceFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, array $attributes) => format_price($attributes['price']),
+        );
     }
 
     public function isWished(): bool
@@ -98,7 +108,7 @@ class Product extends Model
         $attributes['category'] = $this->category->name;
         $attributes['image_url'] = $this->image_url;
         $attributes['gallery_urls'] = $this->gallery_urls;
-        $attributes['formatted_price'] = $this->formatted_price;
+        $attributes['formatted_price'] = $this->price_formatted;
         $attributes['name'] = $this->name;
         $attributes['description'] = $this->description;
         $attributes['is_wished'] = $this->isWished();

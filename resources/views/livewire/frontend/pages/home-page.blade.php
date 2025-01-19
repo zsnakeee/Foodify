@@ -320,7 +320,8 @@
         <div class="container">
             <div class="flat-animate-tab">
                 <div class="flat-title flat-title-tab flex-row justify-content-between px-0">
-                    <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">{{ __('Popular products') }}</span>
+                    <span class="title text-nowrap fw-6 wow fadeInUp"
+                          data-wow-delay="0s">{{ __('Popular products') }}</span>
                     <ul class="widget-tab-5" role="tablist">
                         <li class="nav-tab-item">
                             <a wire:navigate href="{{ route('products') }}" class="d-flex align-items-center gap-10">
@@ -337,7 +338,7 @@
                 </div>
                 <div class="tf-grid-layout tf-col-2 lg-col-4">
                     @foreach($this->featuredProducts as $product)
-{{--                        <x-card.product :product="$product"/>--}}
+                        {{--                        <x-card.product :product="$product"/>--}}
 
                         <div class="card-product visible style-9">
                             <div class="card-product-wrapper">
@@ -358,11 +359,11 @@
                                 <div class="inner-info">
                                     <a wire:navigate href="{{ route('products.view', $product) }}"
                                        class="title link fw-6">{{ $product->name }}</a>
-                                    <span class="price fw-6">{{ $product->formatted_price }}</span>
+                                    <span class="price fw-6">{{ $product->priceFormatted }}</span>
                                 </div>
                                 <div class="list-product-btn">
                                     <div
-                                        x-data="cartHandler({{ $product->id }}, {{ $product->price }}, 1), { loading: false }"
+                                        x-data="cartHandler({{ $product->id }}, {{ $product->priceConverted }}, 1), { loading: false }"
                                         x-on:cart-updated.window="loading = false; $dispatch('open-cart')"
                                         x-on:click="addToCart"
                                         class="box-icon quick-add tf-btn-loading"

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('shipping_address_id')->constrained('addresses')->cascadeOnDelete();
+            $table->string('currency', 3)->default(config('app.currency'));
             $table->decimal('total');
             $table->decimal('discount')->default(0);
             $table->string('promo_code')->nullable();

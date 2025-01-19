@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             DiscountSeeder::class,
             PromoCodeSeeder::class,
+            ExchangeRateSeeder::class,
         ]);
     }
 }

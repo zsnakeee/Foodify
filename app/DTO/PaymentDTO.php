@@ -6,6 +6,7 @@ readonly class PaymentDTO
 {
     public function __construct(
         public float $amount,
+        public string $currency,
         public ?string $order_id = null,
         public ?string $name = null,
         public ?string $email = null,

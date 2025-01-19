@@ -22,7 +22,7 @@ class StripeGateway extends BasePaymentGateway implements PaymentGatewayInterfac
     {
         $this->key = config('services.stripe.key');
         $this->secret = config('services.stripe.secret');
-        $this->currency = config('services.stripe.currency');
+        $this->currency = config('app.currency');
         $this->base_url = 'https://api.stripe.com';
         $this->header = [
             'Accept' => 'application/json',
@@ -92,7 +92,7 @@ class StripeGateway extends BasePaymentGateway implements PaymentGatewayInterfac
                         'name' => $detail->product->name,
                         'description' => $detail->product->description,
                     ],
-                    'unit_amount' => $detail->price * 100,
+                    'unit_amount' => $this->unit_amount($detail->price, $order->currency),
                 ],
                 'quantity' => $detail->quantity,
             ];
@@ -105,5 +105,10 @@ class StripeGateway extends BasePaymentGateway implements PaymentGatewayInterfac
             'cancel_url' => route('payment.failure'),
             'line_items' => $items,
         ];
+    }
+
+    public function unit_amount($amount, $currency): int
+    {
+        return round(exchange($amount, to: $this->currency, from: $currency) * 100);
     }
 }

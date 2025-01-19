@@ -38,10 +38,14 @@ class ExtendedCart extends Cart
     {
         if ($id instanceof Product) {
             $name = $id->name;
-            $price = $id->price;
+            $price = $id->priceConverted;
             $id = $id->id;
             $qty = $qty ?? 1;
         }
+
+        $options = [
+            'currency' => config('app.currency'),
+        ];
 
         return parent::add($id, $name, $qty, $price, $weight, $options);
     }
@@ -85,16 +89,24 @@ class ExtendedCart extends Cart
     public function products()
     {
         return $this->content()->map(function ($item, $rowId) {
-            $product = Product::find($item->id);
+            $product = Product::with('category')->find($item->id);
             $product->qty = $item->qty;
             $product->img = $product->image_url;
             $product->category_name = $product->category->name;
             $product->category_slug = $product->category->slug;
             $product->rowId = $rowId;
+            $product->price = $product->priceConverted;
 
             return $product;
         })->reverse();
     }
+
+//    public function totalFloat()
+//    {
+//        return $this->getContent()->reduce(function ($total, CartItem $cartItem) {
+//            return $total + $cartItem->total;
+//        }, 0);
+//    }
 
     public function applyPromoCode(PromoCode $promo): void
     {
@@ -124,6 +136,7 @@ class ExtendedCart extends Cart
         $order = $user->orders()->create([
             'shipping_address_id' => $address->id,
             'total' => $this->totalFloat(),
+            'currency' => $this->currency(),
             'discount' => $this->discountFloat(),
             'promo_code' => $this->promoCode(),
             'payment_id' => null,
@@ -140,5 +153,19 @@ class ExtendedCart extends Cart
         });
 
         return $order;
+    }
+
+    public function currency(): string
+    {
+        return $this->content()->first()?->options['currency'] ?? config('app.currency');
+    }
+
+    public function switchCurrency(string $currency): void
+    {
+        $this->getContent()->each(function (CartItem $item) use ($currency) {
+            $item->price = exchange($item->price, to: $currency, from: $item->options['currency']);
+            $item->options['currency'] = $currency;
+        });
+
     }
 }
