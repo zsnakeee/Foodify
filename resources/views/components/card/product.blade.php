@@ -23,6 +23,13 @@
            class="title link">
             {{ $product->name }}
         </a>
-        <span class="price">{{ $product->priceFormatted }}</span>
+
+        @isset($product->currency)
+            <span
+                class="price">{{ to_money($product->price, $product->currency) }}</span>
+        @else
+            <span class="price">{{ $product->priceFormatted }}</span>
+        @endisset
+        {{--        <span class="price">{{  }}</span>--}}
     </div>
 </div>

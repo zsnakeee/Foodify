@@ -51,7 +51,7 @@ Route::get('/logout', function () {
 })->name('logout')->middleware('auth');
 
 Route::get('/get', function (){
-    $cart = app(ExtendedCart::class)->shopping();
+    $cart = app(ExtendedCart::class)->wishlist();
     //$cart->destroy();
-    return app(ExtendedCart::class)->shopping()->all();
+    return app(ExtendedCart::class)->wishlist()->all();
 });

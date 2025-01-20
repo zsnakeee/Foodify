@@ -96,17 +96,18 @@ class ExtendedCart extends Cart
             $product->category_slug = $product->category->slug;
             $product->rowId = $rowId;
             $product->price = $product->priceConverted;
+            $product->currency = $item->options['currency'];
 
             return $product;
         })->reverse();
     }
 
-//    public function totalFloat()
-//    {
-//        return $this->getContent()->reduce(function ($total, CartItem $cartItem) {
-//            return $total + $cartItem->total;
-//        }, 0);
-//    }
+    //    public function totalFloat()
+    //    {
+    //        return $this->getContent()->reduce(function ($total, CartItem $cartItem) {
+    //            return $total + $cartItem->total;
+    //        }, 0);
+    //    }
 
     public function applyPromoCode(PromoCode $promo): void
     {

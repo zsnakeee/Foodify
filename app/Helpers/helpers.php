@@ -4,6 +4,7 @@ if (! function_exists('exchange')) {
     function exchange($amount, $to = null, $from = null): float
     {
         $to = $to ?? config('app.currency');
+
         return \App\Models\ExchangeRate::convert($amount, $to, $from);
     }
 }
@@ -15,17 +16,25 @@ if (! function_exists('format_price')) {
 
         return Number::currency($price, config('app.currency'), app()->getLocale());
     }
+
+    function to_money($price, $currency): string
+    {
+        return Number::currency($price, $currency, app()->getLocale());
+    }
 }
 
-if (! function_exists('format_phone')) {
-    function format_phone($phone): string
-    {
-        try {
-            $phone = phone($phone)->formatInternational();
-        } catch (Exception $e) {
-        }
+if (! function_exists('format_price_')) {
 
-        return $phone;
+    if (! function_exists('format_phone')) {
+        function format_phone($phone): string
+        {
+            try {
+                $phone = phone($phone)->formatInternational();
+            } catch (Exception $e) {
+            }
+
+            return $phone;
+        }
     }
 }
 

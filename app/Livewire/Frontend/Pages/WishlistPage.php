@@ -18,9 +18,7 @@ class WishlistPage extends Component
 
     public function render(ExtendedCart $cart)
     {
-        $wishlist = $cart->wishlist();
-        $products = $wishlist->products();
-
+        $products = $cart->wishlist()->products();
         return view('livewire.frontend.pages.wishlist-page', compact('products'))->layoutData([
             'title' => $this->title,
             'pageTitle' => $this->title,
