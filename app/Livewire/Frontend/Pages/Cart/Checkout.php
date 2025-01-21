@@ -10,8 +10,6 @@ use Livewire\Component;
 
 class Checkout extends Component
 {
-    protected $title;
-
     public $products = [];
 
     public float $total;
@@ -20,34 +18,21 @@ class Checkout extends Component
 
     public float $priceTotal;
 
-    public bool $single = false;
-
-    public function __construct()
+    public function mount(): void
     {
-        $this->cart = app(ExtendedCart::class)->shopping();
-    }
-
-    public function mount($single = false): void
-    {
-        $this->title = __('Checkout');
-        $this->single = boolval($single);
-        if (! $single) {
-            $this->products = $this->cart->products();
-        } else {
-            $this->products = $this->cart->instance('single')->products();
-        }
-
-        $this->total = $this->cart->totalFloat();
-        $this->discount = $this->cart->discountFloat();
-        $this->priceTotal = $this->cart->priceTotalFloat();
+        $cart = app(ExtendedCart::class)->shopping();
+        $this->products = $cart->products();
+        $this->total = $cart->totalFloat();
+        $this->discount = $cart->discountFloat();
+        $this->priceTotal = $cart->priceTotalFloat();
     }
 
     public function render()
     {
         return view('livewire.frontend.pages.cart.checkout')
             ->layoutData([
-                'title' => $this->title,
-                'pageTitle' => $this->title,
+                'title' => __('Checkout'),
+                'pageTitle' => __('Checkout'),
                 'breadcrumbs' => [
                     __('Home') => route('home'),
                     __('Checkout') => null,

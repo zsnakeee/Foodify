@@ -20,7 +20,7 @@
                 <div class="tf-page-cart-wrap layout-2">
                     <div class="tf-page-cart-item">
                         <h5 class="fw-5 mb_20">{{ __('Shipping details') }}</h5>
-                        <livewire:frontend.forms.checkout-form :$single/>
+                        <livewire:frontend.forms.checkout-form />
                     </div>
                     <div class="tf-page-cart-footer">
                         <div class="tf-cart-footer-inner"
@@ -49,7 +49,7 @@
 
                                 <hr>
 
-                                <livewire:frontend.forms.promo-code-form :single="$single"/>
+                                <livewire:frontend.forms.promo-code-form />
 
                                 <div class="tf-cart-totals-discounts" x-show="discount > 0">
                                     <h3 class="">{{ __('Subtotal') }}</h3>

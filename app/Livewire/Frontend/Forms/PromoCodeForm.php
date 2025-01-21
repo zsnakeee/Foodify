@@ -12,11 +12,12 @@ class PromoCodeForm extends Component
     #[Validate('required|string')]
     public $promoCode = '';
 
-    public $single = false;
+    protected ExtendedCart $cart;
 
     public function mount()
     {
-        $this->promoCode = $this->cart()->content()->first()?->promoCode ?? '';
+        $this->cart = app(ExtendedCart::class)->shopping();
+        $this->promoCode = $this->cart->content()->first()?->promoCode ?? '';
     }
 
     public function render()
@@ -24,7 +25,7 @@ class PromoCodeForm extends Component
         return view('livewire.frontend.forms.promo-code-form');
     }
 
-    public function applyPromoCode(): void
+    public function applyPromoCode(ExtendedCart $cart): void
     {
         $this->validate();
 
@@ -42,13 +43,13 @@ class PromoCodeForm extends Component
             return;
         }
 
-        $this->cart()->applyPromoCode($promoCode);
-        $this->fireCartUpdatedEvent();
+        $this->cart->applyPromoCode($promoCode);
+        $this->fireCartUpdatedEvent($cart);
     }
 
     public function removePromoCode(): void
     {
-        $this->cart()->removePromoCode();
+        $this->cart->removePromoCode();
         $this->promoCode = '';
         $this->fireCartUpdatedEvent();
     }
@@ -56,15 +57,10 @@ class PromoCodeForm extends Component
     protected function fireCartUpdatedEvent(): void
     {
         $this->dispatch('cart-updated',
-            products: $this->cart()->products(),
-            total: $this->cart()->totalFloat(),
-            subTotal: $this->cart()->priceTotalFloat(),
-            discount: $this->cart()->discountFloat(),
+            products: $this->cart->products(),
+            total: $this->cart->totalFloat(),
+            subTotal: $this->cart->priceTotalFloat(),
+            discount: $this->cart->discountFloat(),
         );
-    }
-
-    protected function cart(): ExtendedCart
-    {
-        return $this->single ? app(ExtendedCart::class)->instance('single') : app(ExtendedCart::class)->shopping();
     }
 }

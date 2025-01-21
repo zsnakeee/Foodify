@@ -24,7 +24,7 @@ Route::get('/products', Products\Index::class)->name('products');
 Route::get('/products/{product}', Products\View::class)->name('products.view');
 Route::get('/cart', Cart\Index::class)->name('cart');
 Route::get('/wishlist', WishlistPage::class)->name('wishlist');
-Route::get('/checkout/{single?}', Cart\Checkout::class)->name('checkout');
+Route::get('/checkout', Cart\Checkout::class)->name('checkout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/orders', Orders\Index::class)->name('orders');
@@ -49,9 +49,3 @@ Route::get('/logout', function () {
 
     return redirect()->route('home');
 })->name('logout')->middleware('auth');
-
-Route::get('/get', function (){
-    $cart = app(ExtendedCart::class)->wishlist();
-    //$cart->destroy();
-    return app(ExtendedCart::class)->wishlist()->all();
-});

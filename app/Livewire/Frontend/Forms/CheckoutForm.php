@@ -19,8 +19,6 @@ class CheckoutForm extends Component
 {
     use RegisterUtilities;
 
-    public $single = false;
-
     public $gateway = 'paypal';
 
     public $addresses;
@@ -45,7 +43,7 @@ class CheckoutForm extends Component
 
     public function mount()
     {
-        $this->addresses = auth()?->user()?->addresses ?? collect();
+        $this->addresses = auth()?->user()?->addresses()->orderBy('is_primary', 'desc')->get();
         $this->address_id = $this->addresses->where('is_primary', true)->first()?->id;
     }
 
