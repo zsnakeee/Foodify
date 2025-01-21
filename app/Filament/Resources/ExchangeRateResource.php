@@ -20,6 +20,8 @@ class ExchangeRateResource extends Resource
 
     protected static ?string $navigationLabel = 'Rates';
 
+    protected static ?int $navigationSort = 100;
+
     public static function form(Form $form): Form
     {
         return $form

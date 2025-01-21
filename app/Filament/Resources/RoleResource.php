@@ -19,6 +19,8 @@ class RoleResource extends Resource
 
     protected static ?string $navigationGroup = 'Users';
 
+    protected static ?int $navigationSort = 21;
+
     public static function form(Form $form): Form
     {
         $permissionsGrouped = Permission::all()->groupBy(function ($permission) {

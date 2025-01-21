@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Frontend\Pages;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
@@ -13,10 +14,10 @@ class HomePage extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.pages.home-page')
-            ->layoutData([
-                'title' => __('Home'),
-            ]);
+        return view('livewire.frontend.pages.home-page', [
+        ])->layoutData([
+            'title' => __('Home'),
+        ]);
     }
 
     #[Computed]
@@ -41,5 +42,11 @@ class HomePage extends Component
     public function featuredProducts()
     {
         return Product::featured()->limit(8)->get();
+    }
+
+    #[Computed]
+    public function banners()
+    {
+        return Banner::active()->ordered()->get();
     }
 }

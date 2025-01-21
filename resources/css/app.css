@@ -212,3 +212,6 @@ button[disabled] {
     }
 }
 
+.swiper-pagination-bullet {
+    border-radius: 50%;
+}
