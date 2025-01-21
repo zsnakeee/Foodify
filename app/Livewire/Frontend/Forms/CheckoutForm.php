@@ -154,7 +154,7 @@ class CheckoutForm extends Component
 
     protected function isSupportedGateway(): bool
     {
-        return in_array($this->gateway, ['paypal', 'stripe', 'cash']);
+        return in_array($this->gateway, ['paypal', 'stripe', 'paymob', 'cash']);
     }
 
     protected function rules(): array

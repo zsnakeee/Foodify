@@ -20,7 +20,7 @@
                 <div class="tf-page-cart-wrap layout-2">
                     <div class="tf-page-cart-item">
                         <h5 class="fw-5 mb_20">{{ __('Shipping details') }}</h5>
-                        <livewire:frontend.forms.checkout-form />
+                        <livewire:frontend.forms.checkout-form/>
                     </div>
                     <div class="tf-page-cart-footer">
                         <div class="tf-cart-footer-inner"
@@ -49,7 +49,7 @@
 
                                 <hr>
 
-                                <livewire:frontend.forms.promo-code-form />
+                                <livewire:frontend.forms.promo-code-form/>
 
                                 <div class="tf-cart-totals-discounts" x-show="discount > 0">
                                     <h3 class="">{{ __('Subtotal') }}</h3>
@@ -88,6 +88,18 @@
                                                 <i class="fab fa-stripe fa-3x mb-2" style="color: #6772e5"></i>
                                                 <p class="small">
                                                     {{ __('PAY WITH STRIPE') }}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="card payment-card" :class="{active: gateway === 'paymob'}"
+                                             x-on:click="gateway = 'paymob'">
+                                            <div class="card-body text-center">
+                                                <img src="{{ asset('assets/images/payments/paymob.png') }}" alt="paymob"
+                                                     class="mb-2"
+                                                     style="width: 80%">
+                                                <p class="small">
+                                                    {{ __('PAY WITH PAYMOB') }}
                                                 </p>
                                             </div>
                                         </div>

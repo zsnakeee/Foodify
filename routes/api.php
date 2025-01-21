@@ -11,7 +11,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::match(['GET', 'POST'], '/payment/callback/{gateway}', PaymentController::class);
+Route::match(['GET', 'POST'], '/payment/callback/{gateway}', PaymentController::class)
+    ->name('api.payment.callback');
 
 Route::apiResource('products', ProductController::class);
 Route::apiResource('categories', CategoryController::class);

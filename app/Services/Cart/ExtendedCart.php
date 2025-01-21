@@ -164,9 +164,10 @@ class ExtendedCart extends Cart
     public function switchCurrency(string $currency): void
     {
         $this->getContent()->each(function (CartItem $item) use ($currency) {
-            $item->price = exchange($item->price, to: $currency, from: $item->options['currency']);
+            $item->price = config('app.default_currency') == $currency ?
+                Product::find($item->id)->price :
+                exchange($item->price, to: $currency, from: $item->options['currency']);
             $item->options['currency'] = $currency;
         });
-
     }
 }

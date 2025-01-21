@@ -59,4 +59,12 @@ return [
         'secret' => env('STRIPE_SECRET'),
         'currency' => env('STRIPE_CURRENCY', 'USD'),
     ],
+
+    'paymob' => [
+        'public_key' => env('PAYMOB_PUBLIC_KEY'),
+        'secret_key' => env('PAYMOB_SECRET_KEY'),
+        'hmac' => env('PAYMOB_HMAC'),
+        'currency' => env('PAYMOB_CURRENCY', 'EGP'),
+        'integration_id' => env('PAYMOB_INTEGRATION_ID', 'card'),
+    ],
 ];
