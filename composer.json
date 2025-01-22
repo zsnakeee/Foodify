@@ -23,6 +23,7 @@
         "spatie/laravel-permission": "^6.10",
         "spatie/laravel-sluggable": "^3.7",
         "spatie/laravel-translatable": "^6.9",
+        "yaza/laravel-google-drive-storage": "^3.0",
         "zsnakeee/lang-pilot": "^1.0",
         "zsnakeee/shoppingcart": "^1.0"
     },

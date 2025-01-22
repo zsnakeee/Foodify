@@ -8,11 +8,25 @@ trait HasImage
 {
     public function getImageUrlAttribute(): string
     {
-        return str_starts_with($this->image, 'http') ? $this->image : Storage::url($this->image);
+        return $this->getImageUrl($this->image);
     }
 
     public function getGalleryUrlsAttribute(): array
     {
-        return array_map(fn ($image) => str_starts_with($image, 'http') ? $image : Storage::url($image), $this->gallery ?? []);
+        return array_map(fn ($image) => $this->getImageUrl($image), $this->gallery ?? []);
+    }
+
+    protected function getImageUrl($image): string
+    {
+        $isUrl = filter_var($image, FILTER_VALIDATE_URL);
+        if ($isUrl) {
+            return $image;
+        }
+
+        if (Storage::disk('public')->exists($image)) {
+            return Storage::url($image);
+        }
+
+        return '';
     }
 }
