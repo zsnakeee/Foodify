@@ -19,7 +19,7 @@ class ProductResource extends JsonResource
             'name' => $this->getTranslations('name'),
             'code' => $this->code,
             'category' => $this->category->getTranslations('name'),
-            'brand' => $this->brand->name,
+            'brand' => $this->brand->getTranslations('name'),
             'description' => $this->getTranslations('description'),
             'image' => asset($this->image_url),
             'gallery' => collect($this->gallery)->map(fn ($image) => asset(Storage::url($image))),
