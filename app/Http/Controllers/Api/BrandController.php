@@ -42,7 +42,10 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $query = Brand::query();
+        request()->boolean('with_products') && $query->with('products');
+
+        return new BrandResource($query->findOrFail($id));
     }
 
     /**

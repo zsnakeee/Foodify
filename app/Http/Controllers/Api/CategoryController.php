@@ -42,7 +42,10 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $query = Category::query();
+        request()->boolean('with_products') && $query->with('products');
+
+        return new CategoryResource($query->findOrFail($id));
     }
 
     /**
