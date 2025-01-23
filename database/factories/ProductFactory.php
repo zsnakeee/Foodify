@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             'code' => Str::random(5),
             'description' => $this->faker->sentence,
             'slug' => $this->faker->slug,
-            'image' => "products/food{$this->faker->numberBetween(1, 7)}.jpg",
+            'image' => $this->faker->imageUrl(),
             'gallery' => [$this->faker->imageUrl(), $this->faker->imageUrl()],
             'quantity' => $this->faker->randomNumber(2),
             'price' => $this->faker->randomFloat(0, 20, 250),
