@@ -15,12 +15,34 @@ class ProductController extends Controller
     public function index()
     {
         $query = Product::query();
-        request()->boolean('active') && $query->where('is_active', true);
-        request()->boolean('new') && $query->where('is_new', true);
-        request()->boolean('featured') && $query->where('is_featured', true);
-        request()->boolean('best') && $query->where('is_best', true);
-        request()->boolean('hot') && $query->where('is_hot', true);
-        request()->boolean('in_stock') && $query->where('quantity', '>', 0);
+        $filters = [
+            'active' => 'is_active',
+            'new' => 'is_new',
+            'featured' => 'is_featured',
+            'best' => 'is_best',
+            'hot' => 'is_hot',
+            'in_stock' => ['quantity', '>', 0],
+        ];
+
+        foreach ($filters as $key => $value) {
+            if (request()->boolean($key)) {
+                is_array($value) ?
+                    $query->where(...$value) :
+                    $query->where($value, true);
+            }
+        }
+
+        // Filter by category
+        request()->has('category') && $query->whereHas('category', function ($query) {
+            $query->whereJsonContains('slug', request('category'))
+                ->orWhereJsonContains('name', 'like', '%'.request('category').'%');
+        });
+
+        // Filter by brand
+        request()->has('brand') && $query->whereHas('brand', function ($query) {
+            $query->whereJsonContains('slug', request('brand'))
+                ->orWhereJsonContains('name', 'like', '%'.request('brand').'%');
+        });
 
         return ProductResource::collection($query->paginate());
     }
