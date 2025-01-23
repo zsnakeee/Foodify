@@ -7,6 +7,7 @@ use App\Livewire\Frontend\Pages\Categories;
 use App\Livewire\Frontend\Pages\HomePage;
 use App\Livewire\Frontend\Pages\LoginPage;
 use App\Livewire\Frontend\Pages\Orders;
+use App\Livewire\Frontend\Pages\PasswordResetPage;
 use App\Livewire\Frontend\Pages\Payment\FailurePage;
 use App\Livewire\Frontend\Pages\Payment\InvoicePage;
 use App\Livewire\Frontend\Pages\Payment\SuccessPage;
@@ -40,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', LoginPage::class)->name('login');
     Route::get('/register', RegisterPage::class)->name('register');
+    Route::get('/password/reset/{email}/{token}', PasswordResetPage::class)->name('password.reset');
     Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('oauth.redirect');
     Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('oauth.callback');
 });
