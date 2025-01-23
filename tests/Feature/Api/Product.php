@@ -1,6 +1,6 @@
 <?php
 
-it('fetch products', function () {
+it('can get products', function () {
     $products = \App\Models\Product::factory(5)->create();
     $response = $this->getJson('/api/products');
     $response->assertOk()
@@ -17,7 +17,7 @@ it('fetch products', function () {
         ]);
 });
 
-it('fetch single product', function () {
+it('can get a product', function () {
     $product = \App\Models\Product::factory()->create();
     $response = $this->getJson("/api/products/{$product->id}");
     $response->assertOk()
@@ -32,7 +32,7 @@ it('fetch single product', function () {
         ]);
 });
 
-it('fetch products by category', function () {
+it('can get products by category', function () {
     $category = \App\Models\Category::factory()->create();
     $products = \App\Models\Product::factory(5)->create();
     $products->each(fn ($product) => $product->category()->associate($category)->save());
@@ -58,7 +58,7 @@ it('fetch products by category', function () {
         ]);
 });
 
-it('fetch products by brand', function () {
+it('can get products by brand', function () {
     $brand = \App\Models\Brand::factory()->create();
     $products = \App\Models\Product::factory(5)->create();
     $products->each(fn ($product) => $product->brand()->associate($brand)->save());
@@ -85,7 +85,7 @@ it('fetch products by brand', function () {
         ]);
 });
 
-it('fetch active products', function () {
+it('can get active products', function () {
     $products = \App\Models\Product::factory(5)->create(['is_active' => true]);
     $response = $this->getJson('/api/products?active=true');
     $response->assertOk()

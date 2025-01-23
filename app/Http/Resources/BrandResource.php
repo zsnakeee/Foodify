@@ -19,6 +19,7 @@ class BrandResource extends JsonResource
             'description' => $this->getTranslations('description'),
             'image' => asset($this->image_url),
             'products' => ProductResource::collection($this->whenLoaded('products')),
+            'is_active' => $this->is_active,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
