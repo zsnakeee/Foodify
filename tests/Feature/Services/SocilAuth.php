@@ -26,7 +26,7 @@ it('signs in with Google', function () {
         ->and($user)
         ->avatar->toBe($socialiteUser->avatar)
         ->oauth_provider->toBe('google')
-        ->oauth_id->toBe($socialiteUser->id);
+        ->oauth_id->toEqual($socialiteUser->id);
 });
 
 it('does not sign in with Google if email is already registered with a different provider', function () {
