@@ -11,7 +11,10 @@
                 <div class="wrap-top">
                     <div class="box-left">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="logo" class="logo">
+                            <img src="{{ asset('assets/images/logo/fodify.png') }}"
+                                 width="150"
+                                 alt="{{ config('app.name') }}"
+                                 class="logo">
                         </a>
                     </div>
                     <div class="box-right">

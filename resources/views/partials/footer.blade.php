@@ -7,8 +7,11 @@
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="footer-infor">
                             <div class="footer-logo">
-                                <a href="index.html">
-                                    <img src="{{ asset("assets/images/logo/logo.svg") }}" alt="">
+                                <a href="{{ route('home') }}">
+                                    <img src="{{ asset("assets/images/logo/fodify.png") }}"
+                                         width="150"
+                                         alt="{{ config('app.name') }}"
+                                         class="logo">
                                 </a>
                             </div>
                             <ul>

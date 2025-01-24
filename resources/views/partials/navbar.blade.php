@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-4 col-4">
                     <a href="/" class="logo-header">
-                        <img src="{{ asset("assets/images/logo/logo-blue2.svg") }}" alt="logo" class="logo">
+                        <img src="{{ asset("assets/images/logo/fodify.png") }}" alt="{{ config('app.name') }}" class="logo">
                     </a>
                 </div>
                 <div class="col-md-4 col-6 tf-md-hidden">
